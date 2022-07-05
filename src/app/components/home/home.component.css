@@ -1,0 +1,82 @@
+.content {
+  width: 94.5%;
+  min-height: 570px;
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
+  margin: 35px 43px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.block {
+  margin-top: 20px;
+}
+
+.circle {
+  border: 2px solid rgba(78, 206, 136, 0.913);
+  border-radius: .5em;
+  width: 70px;
+  height: 70px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  border-radius: 33px;
+  margin: 15px;
+}
+
+.block span,
+h2 {
+  text-transform: uppercase;
+  margin-left: 27px;
+  color: rgba(73, 73, 73, 0.84);
+  font-size: 1em;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  margin: 12px;
+}
+
+.sum {
+  font-size: 1em;
+  margin: 0 30px;
+  color: rgba(73, 73, 73, 0.84);
+}
+
+.flex {
+  display: flex;
+}
+
+.saving,
+.spends {
+  margin: 25px 0 0;
+}
+
+h2 {
+  margin-left: 10px;
+  font-weight: normal;
+  font-size: 1.2em;
+}
+
+hr {
+  margin: 0 10px;
+  background-color: rgba(100, 100, 100, 0.84);
+  border: none;
+  height: 2px;
+}
+
+.add .circle {
+  border: 2px solid rgba(114, 114, 114, 0.84);
+  margin: 54px 15px 0;
+}
+
+.plus img {
+  width: 25px;
+  height: 25px;
+  margin: 20px;
+}
+.spends .ml{
+    margin-left: 11px;
+}
+.useItem, .useItem1{
+  box-shadow: 0 0 10px rgba(78, 206, 136, 0.913);
+}

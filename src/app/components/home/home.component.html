@@ -1,0 +1,70 @@
+<app-header></app-header>
+<main>
+  <div class="content">
+    <div class="block">
+      <span>Income</span>
+      <div class="circle" (click)="Income()" [ngClass]="{ useItem: clickIncome }">
+        <img src="assets/images/finance.png" alt="">
+      </div>
+      <div class="sum">&#8372; 500</div>
+    </div>
+    <div class="saving">
+      <h2>Savings</h2>
+      <hr>
+      <div class="flex">
+        <div class="block">
+          <span>Cash</span>
+          <div class="circle" (click)="Saving1()" [ngClass]="{ useItem: clickIncome, useItem1:clickSaving  }">
+            <img src="assets/images/cash.png" alt="">
+          </div>
+          <div class="sum">&#8372; 500</div>
+        </div>
+        <div class="block">
+          <span>Bank</span>
+          <div class="circle" (click)="Saving2()" [ngClass]="{ useItem: clickIncome, useItem1:clickSaving1 }">
+            <img src="assets/images/bank.png" alt="">
+          </div>
+          <div class="sum">&#8372; 500</div>
+        </div>
+
+        <div class="add">
+          <div class="circle">
+            <div class="plus">
+              <img src="assets/images/add.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spends">
+      <h2>Spends</h2>
+      <hr>
+      <div class="flex">
+        <div class="block">
+          <span class="ml">Girlfriend</span>
+          <div class="circle" (click)="
+          Spends()" [ngClass]="{ useItem:clickSaving, useItem1:clickSaving1}">
+            <img src="assets/images/high-heels.png" alt="">
+          </div>
+          <div class="sum">&#8372; 500</div>
+        </div>
+        <div class="block">
+          <span>Food</span>
+          <div class="circle" (click)="
+          Spends()" [ngClass]="{ useItem:clickSaving, useItem1:clickSaving1}">
+            <img src="assets/images/food.png" alt="">
+          </div>
+          <div class="sum">&#8372; 500</div>
+        </div>
+
+        <div class="add">
+          <div class="circle">
+            <div class="plus">
+              <img src="assets/images/add.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
