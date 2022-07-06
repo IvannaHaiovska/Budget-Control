@@ -22,7 +22,5 @@ export class HeaderComponent implements OnInit {
   GetLoginUser() {
     this.log = this.storageService.getUser();
     this.LogUser = this.log.user;
-    console.log(this.LogUser);
-    
   }
 }

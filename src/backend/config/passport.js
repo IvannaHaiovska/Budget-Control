@@ -7,7 +7,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
 const dbConn = require('./db.config');
-var Users;
+let Users;
 dbConn.query('SELECT * FROM budgetControl.users', function (error, results) {
     if (error) throw error;
   Users = results;

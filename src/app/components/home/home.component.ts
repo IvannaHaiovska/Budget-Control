@@ -51,11 +51,11 @@ export class HomeComponent implements OnInit {
     confirm();
   }
 
-  Spends(){
-    if(this.clickSaving && this.clickSaving1){
+  Spends() {
+    if (this.clickSaving && this.clickSaving1) {
       confirm();
     }
-    else{
+    else {
       alert("Please activate any of the saving buttons")
     }
   }

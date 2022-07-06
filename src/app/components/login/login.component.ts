@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     const { email, password } = this.form;
     this.users.map((user: any) => {
-      if ((user.email === email)&&(user.password===password)) {
+      if ((user.email === email) && (user.password === password)) {
         this.isSignInFailed = false;
         this.authService.login(email, password).subscribe({
           next: data => {

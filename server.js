@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-localStrategy = require("passport-local");
- const passport = require('passport');
-var session = require('express-session');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const localStrategy = require("passport-local");
+const passport = require('passport');
+const session = require('express-session');
 
 app.use(function (req, res, next) {
   res.header({
