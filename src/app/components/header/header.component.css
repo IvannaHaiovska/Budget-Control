@@ -1,49 +1,57 @@
-header{
-    margin: 30px 60px;
-    display: flex;
-    font-family: sans-serif;
+header {
+  margin: 30px 60px;
+  display: flex;
+  font-family: sans-serif;
 }
-.menu{
-    height: 50px;
-    width: 60px;
-    background-color: rgba(78, 206, 136, 0.913);
-    box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
+
+.menu {
+  height: 50px;
+  width: 60px;
+  background-color: rgba(78, 206, 136, 0.913);
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
 }
-.menu img{
-    width: 30px;
-    height: 30px;
-    margin: 10px 14px;
+
+.menu img {
+  width: 30px;
+  height: 30px;
+  margin: 10px 14px;
 }
-.userInfo{
-   height: 50px;
-    margin-left: 20px;
-    width: 95%;
-    display: flex;
-    background-color: rgba(78, 206, 136, 0.913);
-    box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
-    justify-content: space-around;
+
+.userInfo {
+  height: 50px;
+  margin-left: 20px;
+  width: 95%;
+  display: flex;
+  background-color: rgba(78, 206, 136, 0.913);
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
+  justify-content: space-around;
 }
-.userInfo div{
-    display: flex;
+
+.userInfo div {
+  display: flex;
 }
-.userInfo img{
-    width: 40px;
-    height: 40px;
-    margin-top: 5px;
+
+.userInfo img {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
 }
-.text{
-    font-size: 1.1em;
-    margin: 15px 0 0 13px;
-    color: rgb(74, 74, 74);
+
+.text {
+  font-size: 1.1em;
+  margin: 15px 0 0 13px;
+  color: rgb(74, 74, 74);
 }
-.text span{
-    text-transform: uppercase;
-    margin-right: 5px;
+
+.text span {
+  text-transform: uppercase;
+  margin-right: 5px;
 }
-button{
-    background-color: white;
+
+button {
+  background-color: white;
   color: black;
-  border: 2px solid #4CAF50; 
+  border: 2px solid #4CAF50;
   border-radius: 8px;
   font-family: sans-serif;
   font-size: 1.1em;

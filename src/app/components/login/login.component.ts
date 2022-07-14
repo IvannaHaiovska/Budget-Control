@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/shared/service/auth/auth.service';
 import { StorageService } from 'src/app/shared/service/storage/storage.service';
 import { UsersService } from 'src/app/shared/service/users/users.service';
 
+import { IUser } from 'src/app/shared/interface/user/user';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,13 +13,13 @@ import { UsersService } from 'src/app/shared/service/users/users.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: any = {
-    email: null,
-    password: null
+  form = {
+    email: '',
+    password: ''
   };
   public isSignInFailed = false;
   public errorMessage = '';
-  public users: any;
+  public users: Array<IUser> = [];
 
   constructor(private authService: AuthService,
     private storageService: StorageService,
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
       this.users = res;
     })
   }
+  
   onLogin() {
     const { email, password } = this.form;
     this.users.map((user: any) => {

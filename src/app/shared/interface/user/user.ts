@@ -1,9 +1,11 @@
 export interface IUser {
+    id: number,
     username: string,
-    usersurname:string,
+    usersurname: string,
     email: string,
     password: string,
-    balance:number,
-    createdAt: Date,
-    id: number,
+    balance: number,
+    expenses: number,
+    income: number,
+    createdAt: Date
 }

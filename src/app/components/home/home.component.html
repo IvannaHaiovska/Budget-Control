@@ -6,25 +6,22 @@
       <div class="circle" (click)="Income()" [ngClass]="{ useItem: clickIncome }">
         <img src="assets/images/finance.png" alt="">
       </div>
-      <div class="sum">&#8372; 500</div>
+      <div *ngFor="let item of users">
+        <div class="sum" *ngIf="item.id==LogUser.id">&#8372; {{item.income}}</div>
+      </div>
     </div>
     <div class="saving">
       <h2>Savings</h2>
       <hr>
       <div class="flex">
-        <div class="block">
-          <span>Cash</span>
-          <div class="circle" (click)="Saving1()" [ngClass]="{ useItem: clickIncome, useItem1:clickSaving  }">
-            <img src="assets/images/cash.png" alt="">
+        <div class="block" *ngFor="let item of savings; let i as index">
+          <span>{{item.name}}</span>
+          <div class="circle" (click)="Saving(i)" [class.active]="item == activeSaving"
+            [ngClass]="{ useItem: clickIncome}">
+            <img *ngIf="item.name=='cash'" src="assets/images/cash.png" alt="">
+            <img *ngIf="item.name=='bank'" src="assets/images/bank.png" alt="">
           </div>
-          <div class="sum">&#8372; 500</div>
-        </div>
-        <div class="block">
-          <span>Bank</span>
-          <div class="circle" (click)="Saving2()" [ngClass]="{ useItem: clickIncome, useItem1:clickSaving1 }">
-            <img src="assets/images/bank.png" alt="">
-          </div>
-          <div class="sum">&#8372; 500</div>
+          <div class="sum">&#8372; {{item.sum}}</div>
         </div>
 
         <div class="add">
@@ -40,21 +37,14 @@
       <h2>Spends</h2>
       <hr>
       <div class="flex">
-        <div class="block">
-          <span class="ml">Girlfriend</span>
+        <div class="block" *ngFor="let item of spends; let i as index">
+          <span class="ml">{{item.name}}</span>
           <div class="circle" (click)="
-          Spends()" [ngClass]="{ useItem:clickSaving, useItem1:clickSaving1}">
-            <img src="assets/images/high-heels.png" alt="">
+          Spends(i)" [class.active]="item == activeSpend" [ngClass]="{ useItem1: clickSaving}">
+            <img *ngIf="item.name=='girlfriend'" src="assets/images/high-heels.png" alt="">
+            <img *ngIf="item.name=='food'" src="assets/images/food.png" alt="">
           </div>
-          <div class="sum">&#8372; 500</div>
-        </div>
-        <div class="block">
-          <span>Food</span>
-          <div class="circle" (click)="
-          Spends()" [ngClass]="{ useItem:clickSaving, useItem1:clickSaving1}">
-            <img src="assets/images/food.png" alt="">
-          </div>
-          <div class="sum">&#8372; 500</div>
+          <div class="sum">&#8372; {{item.sum}}</div>
         </div>
 
         <div class="add">
@@ -68,3 +58,44 @@
     </div>
   </div>
 </main>
+
+<div class="underblock" *ngIf="calculate"></div>
+
+<div class="calculator" *ngIf="calculate">
+  <div (click)="close()">
+    <img src="assets/images/close-button.png" alt="" class="close">
+  </div>
+
+  <input class="calculator__screen " (keypress)="onKeyPress($event)" autofocus (keydown)="onKeyDown($event)"
+    value='{{input}}' />
+  <div class="valid" *ngIf="inputEmpty">Please fill in the field. Use only numbers</div>
+  <div class="calculator__keys">
+
+    <button type="button" (click)="pressNum('7')" class="calculator__btn">7</button>
+    <button type="button" (click)="pressNum('8')" class="calculator__btn">8</button>
+    <button type="button" (click)="pressNum('9')" class="calculator__btn">9</button>
+    <button type="button" class="calculator__operator " (click)="pressOperator('+')">+</button>
+    <button type="button" class="calculator__operator " (click)="pressOperator('-')">-</button>
+
+    <button type="button" (click)="pressNum('4')" class="calculator__btn">4</button>
+    <button type="button" (click)="pressNum('5')" class="calculator__btn">5</button>
+    <button type="button" (click)="pressNum('6')" class="calculator__btn">6</button>
+    <button type="button" class="calculator__operator " (click)="pressOperator('*')">*</button>
+    <button type="button" class="calculator__operator " (click)="pressOperator('/')">/</button>
+
+    <button type="button" (click)="pressNum('1')" class="calculator__btn">1</button>
+    <button type="button" (click)="pressNum('2')" class="calculator__btn">2</button>
+    <button type="button" (click)="pressNum('3')" class="calculator__btn">3</button>
+
+    <button type="button" class="calculator__clear" value="all-clear" (click)="clear()">AC</button>
+    <button type="button" class="calculator__equal" value="=" (click)="getAnswer()">=</button>
+    <div></div>
+    <button type="button" (click)="pressNum('0')" class="calculator__btn mr">0</button>
+    <button type="button" class="calculator__btn mr" (click)="pressNum('.')">,</button>
+    <div></div>
+    <div class="calculator__check margin" (click)="PushResult()">
+      <img src="assets/images/check-mark.png" alt="">
+    </div>
+
+  </div>
+</div>
