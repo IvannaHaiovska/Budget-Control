@@ -10,13 +10,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component'; 
 import { LoginComponent } from './components/login/login.component';
+import { HistoryComponent } from './components/history/history.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    HistoryComponent,
+    StatisticComponent,
+    MyProfileComponent
   ],
   imports: [
     CommonModule,

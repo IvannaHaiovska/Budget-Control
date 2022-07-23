@@ -13,8 +13,14 @@ import { IUser } from 'src/app/shared/interface/user/user';
 export class HeaderComponent implements OnInit {
 
   public log: any;
-  public LogUser: Array<IUser> = [];
+  public LogUser!: IUser;
   public users: Array<IUser> = [];
+  public routes = [
+    { route: '/my-profile', name: 'My Profile', imagePath:'assets/images/profile.png' },
+    { route: '/statistic', name: 'Statistic', imagePath:'assets/images/bar-chart.png' },
+    { route: '/history', name: 'History', imagePath:'assets/images/calendar (1).png' }
+  ];
+  public isNav = false;
 
   constructor
     (private storageService: StorageService,
@@ -38,5 +44,12 @@ export class HeaderComponent implements OnInit {
     this.userService.getAll().subscribe(res => {
       this.users = res;
     });
+  }
+
+  OpenNav() {
+    this.isNav = true;
+  }
+  close(){
+    this.isNav = false;
   }
 }

@@ -1,7 +1,18 @@
 <header>
-  <div class="menu">
+  <div class="burger-menu menu">
     <nav>
-      <img src="assets/images/menu.png" alt="">
+      <img src="assets/images/menu.png" alt="" (click)="OpenNav()">
+      <div id="sidebar">
+        
+        <!-- Sidebar Links -->
+        <ul class="menubox" *ngIf="isNav">
+          <div class="close" (click)="close()">
+          <img src="assets/images/close.png" alt="">
+        </div>
+          <li *ngFor="let item of routes"><img [src]="item.imagePath" alt=""> <a class="menu-item" [routerLink]="item.route">{{item.name}}</a></li>
+          <li (click)="LogOut()"><img src="assets/images/exit.png" alt="" ><a class="menu-item">Log Out</a></li>
+        </ul>
+      </div>
     </nav>
   </div>
   <div class="userInfo">
@@ -37,8 +48,7 @@
         <span>{{LogUser.create_at | date: 'dd.MM.YYYY, HH:mm'}}</span>
       </div>
     </div>
-    <div class="logout">
-      <button type="button" (click)="LogOut()">Log Out</button>
-    </div>
   </div>
 </header>
+<div class="black-block" *ngIf="isNav" (click)="close()">
+</div>

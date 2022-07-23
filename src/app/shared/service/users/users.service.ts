@@ -4,6 +4,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IUser } from '../../interface/user/user';
+import { ISavings } from 'src/app/shared/interface/savings/savings';
+import { ISpends } from 'src/app/shared/interface/spends/spends';
+
 const baseUrl = 'http://localhost:3000/users';
 
 @Injectable({
@@ -33,23 +36,23 @@ export class UsersService {
     return this.http.put<IUser>(`${baseUrl}/expenses/${id}`, data);
   }
 
-  getAllSavings(): Observable<any[]> {
-    return this.http.get<any[]>(`${baseUrl}/savings`);
+  getAllSavings(): Observable<ISavings[]> {
+    return this.http.get<ISavings[]>(`${baseUrl}/savings`);
   }
 
-  updateSavings(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${baseUrl}/savings/${id}`, data, { headers: this.httpHeaders })
+  updateSavings(id: number, data: any): Observable<ISavings> {
+    return this.http.put<ISavings>(`${baseUrl}/savings/${id}`, data, { headers: this.httpHeaders })
       .pipe(
         catchError(this.handleError)
       )
   }
 
-  getAllSpends(): Observable<any[]> {
-    return this.http.get<any[]>(`${baseUrl}/spends`);
+  getAllSpends(): Observable<ISpends[]> {
+    return this.http.get<ISpends[]>(`${baseUrl}/spends`);
   }
 
-  updateSpends(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${baseUrl}/spends/${id}`, data, { headers: this.httpHeaders })
+  updateSpends(id: number, data: any): Observable<ISpends> {
+    return this.http.put<ISpends>(`${baseUrl}/spends/${id}`, data, { headers: this.httpHeaders })
       .pipe(
         catchError(this.handleError)
       )

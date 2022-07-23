@@ -57,3 +57,54 @@ button {
   font-size: 1.1em;
   padding: 0 5px;
 }
+
+/* Change the link color on hover */
+li:hover {
+  background-color: rgba(78, 206, 136, 0.913);
+}
+ 
+.menubox{
+  display: block;
+  position: fixed;
+  top: 15.3%;
+  left: 0;
+  background-color: #f8f8f8;
+  width: 250px;
+  height: 78.3%;
+  margin: 0;
+  padding:0 35px;
+  list-style: none;
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+  transition-duration: .25s;
+  z-index: 10;
+}
+.menubox li{
+  display: flex;
+  border-bottom: 1px solid rgba(78, 206, 136, 0.913);
+margin-top: 20px;
+}
+.menu-item {
+  display: block;
+  padding: 12px 0;
+  color: rgb(74, 74, 74);
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition-duration: .25s;
+}
+
+ .black-block{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: rgba(10, 10, 10, 0.379)
+ }
+ 
+.close{
+  width: 20px;
+  margin-left: 80%;
+}

@@ -13,7 +13,7 @@ import { IUser } from 'src/app/shared/interface/user/user';
 export class HomeComponent implements OnInit {
 
   public log: any;
-  public LogUser: any;
+  public LogUser!: IUser;
   public clickIncome = false;
   public clickSaving = false;
   public calculate = false;
