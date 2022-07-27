@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
         this.isSignInFailed = false;
         this.authService.login(email, password).subscribe({
           next: data => {
+            console.log(data);
+            
             this.storageService.saveUser(data);
           },
           error: err => {

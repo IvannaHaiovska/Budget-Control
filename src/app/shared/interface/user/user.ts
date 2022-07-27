@@ -7,5 +7,6 @@ export interface IUser {
     balance: number,
     expenses: number,
     income: number,
-    createdAt: Date
+    imagePath:string,
+    create_at: Date
 }

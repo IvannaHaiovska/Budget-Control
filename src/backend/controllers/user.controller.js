@@ -15,6 +15,30 @@ exports.findOne = (req, res) => {
       return res.send(results);
     });
 };
+exports.updateUser = (req, res) => {
+  let id = req.body.id;
+  let username = req.body.username;
+  let usersurname = req.body.usersurname;
+  let email = req.body.email;
+  let password = req.body.password;
+  let balance = req.body.balance;
+
+  if (!id || !username || !usersurname || !email || !password || !balance) {
+    return res.status(400).send({
+      error: username,
+      message: 'Please provide username and id'
+    });
+  }
+
+  dbConn.query("UPDATE budgetControl.users SET username = ?, usersurname = ?, email= ?, password=?, balance = ?  WHERE id = ?", [username, usersurname, email, password, balance, id], function (error, results, fields) {
+    if (error) throw error;
+    return res.send({
+      error: false,
+      data: results,
+      message: 'user has been updated successfully.'
+    });
+  });
+};
 
 exports.updateIncome = (req, res) => {
   let id = req.body.id;

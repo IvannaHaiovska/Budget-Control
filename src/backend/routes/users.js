@@ -6,6 +6,7 @@ module.exports = app => {
   router.get("/savings", users.findAllSav);
   router.get("/spends", users.findAllSp);
   router.get("/:id", users.findOne);
+  router.put("/:id", users.updateUser);
   router.put("/income/:id", users.updateIncome);
   router.put("/balance/:id", users.updateBalance);
   router.put("/expenses/:id", users.updateExpenses);

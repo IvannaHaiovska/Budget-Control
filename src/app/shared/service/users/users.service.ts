@@ -26,6 +26,9 @@ export class UsersService {
   getOne(id: number): Observable<IUser> {
     return this.http.get<IUser>(`${baseUrl}/${id}`);
   }
+  updateUser(id: number, data: IUser): Observable<IUser> {
+    return this.http.put<IUser>(`${baseUrl}/${id}`, data);
+  }
   updateIncome(id: number, data: IUser): Observable<IUser> {
     return this.http.put<IUser>(`${baseUrl}/income/${id}`, data);
   }

@@ -1,54 +1,68 @@
-<header>
-  <div class="burger-menu menu">
-    <nav>
-      <img src="assets/images/menu.png" alt="" (click)="OpenNav()">
-      <div id="sidebar">
-        
-        <!-- Sidebar Links -->
-        <ul class="menubox" *ngIf="isNav">
-          <div class="close" (click)="close()">
-          <img src="assets/images/close.png" alt="">
-        </div>
-          <li *ngFor="let item of routes"><img [src]="item.imagePath" alt=""> <a class="menu-item" [routerLink]="item.route">{{item.name}}</a></li>
-          <li (click)="LogOut()"><img src="assets/images/exit.png" alt="" ><a class="menu-item">Log Out</a></li>
-        </ul>
+<mat-toolbar>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="menu"  (click)="OpenNav()">
+    <img src="assets/images/menu.png" alt="">
+  </button>
+
+  <mat-menu #menu="matMenu" class="matmenu">   
+    <div class="menubox" *ngIf="isNav">
+      <div class="close" (click)="close()">
+        <img src="assets/images/close.png" alt="">
       </div>
-    </nav>
-  </div>
-  <div class="userInfo">
-    <div class="user">
-      <img src="assets/images/user.png" alt="">
-      <div class="text">
-        <span>User:</span>
-        <span>{{LogUser.username}} {{LogUser.usersurname}}</span>
+    <button mat-menu-item *ngFor="let item of routes" [routerLink]="item.route">
+      <div class="f">
+        <img [src]="item.imagePath" alt="">
+        <span>{{item.name}}</span></div>
+    </button>
+    <button mat-menu-item (click)="LogOut()">
+      <div class="f">
+        <img src="assets/images/exit.png" alt="">
+        <span>Log Out</span>
       </div>
-    </div>
-    <div class="balance">
-      <img src="assets/images/money.png" alt="">
-      <div class="text">
-        <span>Balance:</span>
-        <div *ngFor="let item of users">
-          <span *ngIf="item.id==LogUser.id">&#8372; {{item.balance}}</span></div>
-      </div>
-    </div>
-    <div class="expenses">
-      <img src="assets/images/wallet.png" alt="">
-      <div class="text">
-        <span>Expenses:</span>
-        <div *ngFor="let item of users">
-          <span *ngIf="item.id==LogUser.id">
-            &#8372; {{item.expenses}}</span>
+    </button></div>
+  </mat-menu>
+
+  <mat-list class="userInfo">
+    <mat-list-item>
+      <div class="user">
+        <img src="assets/images/user.png" alt="">
+        <div class="text">
+          <span>User:</span>
+          <span>{{LogUser.username}} {{LogUser.usersurname}}</span>
         </div>
       </div>
-    </div>
-    <div class="date">
-      <img src="assets/images/calendar.png" alt="">
-      <div class="text">
-        <span>Date:</span>
-        <span>{{LogUser.create_at | date: 'dd.MM.YYYY, HH:mm'}}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <div class="balance">
+        <img src="assets/images/money.png" alt="">
+        <div class="text">
+          <span>Balance:</span>
+          <div *ngFor="let item of users">
+            <span *ngIf="item.id==LogUser.id">&#8372; {{item.balance}}</span></div>
+        </div>
       </div>
-    </div>
-  </div>
-</header>
+    </mat-list-item>
+    <mat-list-item>
+      <div class="expenses">
+        <img src="assets/images/wallet.png" alt="">
+        <div class="text">
+          <span>Expenses:</span>
+          <div *ngFor="let item of users">
+            <span *ngIf="item.id==LogUser.id">
+              &#8372; {{item.expenses}}</span>
+          </div>
+        </div>
+      </div>
+    </mat-list-item>
+    <mat-list-item>
+      <div class="date">
+        <img src="assets/images/calendar.png" alt="">
+        <div class="text">
+          <span>Date:</span>
+          <span>{{LogUser.create_at | date: 'dd.MM.YYYY, HH:mm'}}</span>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</mat-toolbar>
 <div class="black-block" *ngIf="isNav" (click)="close()">
 </div>

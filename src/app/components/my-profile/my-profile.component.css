@@ -1,0 +1,99 @@
+.body {
+  background-color: rgb(240, 240, 240);
+  height: 100%;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+
+}
+
+.mat-raised-button {
+  margin: 10px 10px 0;
+}
+
+.example-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+mat-card-content div {
+  display: flex;
+}
+
+mat-card-content span {
+  margin: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: sans-serif;
+}
+
+mat-card-content p {
+  margin-top: 5px;
+  font-size: 1.2em;
+  font-family: sans-serif;
+}
+
+mat-icon {
+  margin: 5px 10px 0 1px;
+  font-size: 0.9em;
+}
+
+.example-card-avatar {
+  position: absolute;
+  top: 20%;
+  left: 37.8%;
+  z-index: 10;
+  width: 370px;
+}
+
+.black-block {
+  position: absolute;
+  min-height: 100%;
+  min-width: max-content;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: rgba(10, 10, 10, 0.379)
+}
+
+.block {
+  display: block;
+  width: 370px;
+  margin: 0 0 20px 80px;
+}
+
+mat-card-title-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+mat-card-title-group img {
+  margin: 5px 0;
+}
+
+.block {
+  display: block;
+  margin-left: 0;
+  font-size: 1.2em;
+}
+
+.close {
+  margin: 5px 0 5px 92%;
+  width: 15px;
+  height: 15px;
+}
+
+mat-card-title {
+  display: inline;
+}
+
+mat-icon {
+  display: none;
+}
+
+.hoverChange:hover>mat-icon {
+  display: inline;
+}

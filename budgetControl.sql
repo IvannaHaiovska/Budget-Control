@@ -15,6 +15,7 @@ password varchar(120) not null,
 balance int not null default 0,
 expenses int not null default 0,
 income int not null default 0,
+imagePath varchar(220) default 'https://www.therconline.com/wp-content/uploads/2022/05/Does-Facebook-have-the-%E2%80%98New-Profile-Pic-feature-as-app-goes-viral-1.png',
 create_at timestamp default now()
 );
 
@@ -29,7 +30,8 @@ create table savings(
 id int not null primary key auto_increment,
 name varchar(120) not null,
 sum int not null default 0,
-users_id int not null
+users_id int not null,
+create_at timestamp default now()
 );
 
 alter table savings add foreign key (users_id) references users(id);
@@ -48,7 +50,8 @@ create table spends(
 id int not null primary key auto_increment,
 name varchar(120) not null,
 sum int not null default 0,
-users_id int not null
+users_id int not null,
+create_at timestamp default now()
 );
 
 alter table spends add foreign key (users_id) references users(id);
@@ -62,3 +65,4 @@ insert into spends(name, sum, users_id) values
 ('food',500,3);
 
 SELECT * FROM spends;
+

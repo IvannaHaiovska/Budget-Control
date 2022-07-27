@@ -66,32 +66,33 @@
     <img src="assets/images/close-button.png" alt="" class="close">
   </div>
 
-  <input class="calculator__screen " (keypress)="onKeyPress($event)" autofocus (keydown)="onKeyDown($event)"
-    value='{{input}}' />
+  <input matInput class="calculator__screen " (keypress)="onKeyPress($event)" autofocus (keydown)="onKeyDown($event)"
+    value='{{input}}'>
+
   <div class="valid" *ngIf="inputEmpty">Please fill in the field. Use only numbers</div>
   <div class="calculator__keys">
 
-    <button type="button" (click)="pressNum('7')" class="calculator__btn">7</button>
-    <button type="button" (click)="pressNum('8')" class="calculator__btn">8</button>
-    <button type="button" (click)="pressNum('9')" class="calculator__btn">9</button>
-    <button type="button" class="calculator__operator " (click)="pressOperator('+')">+</button>
-    <button type="button" class="calculator__operator " (click)="pressOperator('-')">-</button>
+    <button mat-button (click)="pressNum('7')" class="calculator__btn">7</button>
+    <button mat-button (click)="pressNum('8')" class="calculator__btn">8</button>
+    <button mat-button (click)="pressNum('9')" class="calculator__btn">9</button>
+    <button mat-button class="calculator__operator " (click)="pressOperator('+')">+</button>
+    <button mat-button class="calculator__operator " (click)="pressOperator('-')">-</button>
 
-    <button type="button" (click)="pressNum('4')" class="calculator__btn">4</button>
-    <button type="button" (click)="pressNum('5')" class="calculator__btn">5</button>
-    <button type="button" (click)="pressNum('6')" class="calculator__btn">6</button>
-    <button type="button" class="calculator__operator " (click)="pressOperator('*')">*</button>
-    <button type="button" class="calculator__operator " (click)="pressOperator('/')">/</button>
+    <button mat-button (click)="pressNum('4')" class="calculator__btn">4</button>
+    <button mat-button (click)="pressNum('5')" class="calculator__btn">5</button>
+    <button mat-button (click)="pressNum('6')" class="calculator__btn">6</button>
+    <button mat-button class="calculator__operator " (click)="pressOperator('*')">*</button>
+    <button mat-button class="calculator__operator " (click)="pressOperator('/')">/</button>
 
-    <button type="button" (click)="pressNum('1')" class="calculator__btn">1</button>
-    <button type="button" (click)="pressNum('2')" class="calculator__btn">2</button>
-    <button type="button" (click)="pressNum('3')" class="calculator__btn">3</button>
+    <button mat-button (click)="pressNum('1')" class="calculator__btn">1</button>
+    <button mat-button (click)="pressNum('2')" class="calculator__btn">2</button>
+    <button mat-button (click)="pressNum('3')" class="calculator__btn">3</button>
 
-    <button type="button" class="calculator__clear" value="all-clear" (click)="clear()">AC</button>
-    <button type="button" class="calculator__equal" value="=" (click)="getAnswer()">=</button>
+    <button mat-button class="calculator__clear" value="all-clear" (click)="clear()">AC</button>
+    <button mat-button class="calculator__equal" value="=" (click)="getAnswer()">=</button>
     <div></div>
-    <button type="button" (click)="pressNum('0')" class="calculator__btn mr">0</button>
-    <button type="button" class="calculator__btn mr" (click)="pressNum('.')">,</button>
+    <button mat-button (click)="pressNum('0')" class="calculator__btn mr">0</button>
+    <button mat-button class="calculator__btn mr" (click)="pressNum('.')">,</button>
     <div></div>
     <div class="calculator__check margin" (click)="PushResult()">
       <img src="assets/images/check-mark.png" alt="">

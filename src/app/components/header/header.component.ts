@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit {
   GetLoginUser() {
     this.log = this.storageService.getUser();
     this.LogUser = this.log.user;
+    console.log(this.LogUser );
   }
-
   GetUsers() {
     this.userService.getAll().subscribe(res => {
       this.users = res;
