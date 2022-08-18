@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public isSignInFailed = false;
   public errorMessage = '';
   public users: Array<IUser> = [];
-
+  public data: any;
   constructor(private authService: AuthService,
     private storageService: StorageService,
     private userService: UsersService) { }
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.users = res;
     })
   }
-  
+
   onLogin() {
     const { email, password } = this.form;
     this.users.map((user: any) => {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.authService.login(email, password).subscribe({
           next: data => {
             console.log(data);
-            
+            this.data = data;
             this.storageService.saveUser(data);
           },
           error: err => {

@@ -16,8 +16,8 @@ export class HistoryComponent implements OnInit {
 
   public log: any;
   public LogUser: any;
-  public spends: ISpends[] = [];
-  public savings: ISavings[] = [];
+  public spends!: ISpends;
+  public savings!: ISavings;
 
   constructor(
     private storageService: StorageService,
@@ -34,15 +34,17 @@ export class HistoryComponent implements OnInit {
     this.log = this.storageService.getUser();
     this.LogUser = this.log.user;
   }
-  
+
   GetSavings() {
     this.userService.getAllSavings().pipe(
       mergeMap(task => task),
       filter(item => item.users_id === this.LogUser.id),
       catchError(error => { throw `Something wrong ${error.message}` }
       )
-    ).subscribe(res =>
+    ).subscribe(res => {
+      this.spends = res;
       console.log(`Savings history for ${res.name}:`, res)
+    }
     )
   }
 
@@ -52,8 +54,10 @@ export class HistoryComponent implements OnInit {
       filter(item => item.users_id === this.LogUser.id),
       catchError(error => { throw `Something wrong ${error.message}` }
       )
-    ).subscribe(res =>
+    ).subscribe(res => {
+      this.spends = res;
       console.log(`Spends history for ${res.name}:`, res)
+    }
     )
   }
 }

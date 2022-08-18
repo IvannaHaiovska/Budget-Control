@@ -69,6 +69,7 @@ export class MyProfileComponent implements OnInit {
     this.isAvatar = false;
     this.isChoose = false;
   }
+  
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogPasswordDialog, {
       width: '250px',
@@ -76,8 +77,6 @@ export class MyProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
       this.LogUser.password = result;
       this.updatePassword = {
         id: this.LogUser.id,
@@ -95,23 +94,24 @@ export class MyProfileComponent implements OnInit {
       data: { userDetail: this.userDetail, updateItem: this.updateItem },
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (item === 'name') {
+      if (this.updateItem === 'name') {
         this.LogUser.username = result;
         this.name = result;
       }
-      else if (item === 'surname') {
+      else if (this.updateItem === 'surname') {
         this.LogUser.usersurname = result;
         this.surname = result;
       }
-      else if (item === 'email') {
+      else if (this.updateItem === 'email') {
         this.LogUser.email = result;
         this.email = result;
       }
 
-      else if (item === 'balance') {
+      else if (this.updateItem === 'balance') {
         this.LogUser.balance = result;
         this.balance = result;
       }
+      
     });
   }
   Save() {

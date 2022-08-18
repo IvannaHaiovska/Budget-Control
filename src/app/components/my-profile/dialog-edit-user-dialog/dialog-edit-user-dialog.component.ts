@@ -37,7 +37,7 @@ export class DialogEditUserDialogComponent implements OnInit {
   }
   onNoClick(): void {
     this.dialogRef.close();
-    window.location.reload();
+    // window.location.reload();
   }
 
   CheckPassword() {

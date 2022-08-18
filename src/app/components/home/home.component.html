@@ -14,14 +14,14 @@
       <h2>Savings</h2>
       <hr>
       <div class="flex">
-        <div class="block" *ngFor="let item of savings; let i as index">
+        <div class="block savings" *ngFor="let item of savings; let i as index">
           <span>{{item.name}}</span>
           <div class="circle" (click)="Saving(i)" [class.active]="item == activeSaving"
             [ngClass]="{ useItem: clickIncome}">
             <img *ngIf="item.name=='cash'" src="assets/images/cash.png" alt="">
             <img *ngIf="item.name=='bank'" src="assets/images/bank.png" alt="">
           </div>
-          <div class="sum">&#8372; {{item.sum}}</div>
+          <div class="sum sumsaving">&#8372; {{item.sum}}</div>
         </div>
 
         <div class="add">
@@ -37,14 +37,14 @@
       <h2>Spends</h2>
       <hr>
       <div class="flex">
-        <div class="block" *ngFor="let item of spends; let i as index">
+        <div class="block spends" *ngFor="let item of spends; let i as index">
           <span class="ml">{{item.name}}</span>
           <div class="circle" (click)="
           Spends(i)" [class.active]="item == activeSpend" [ngClass]="{ useItem1: clickSaving}">
             <img *ngIf="item.name=='girlfriend'" src="assets/images/high-heels.png" alt="">
             <img *ngIf="item.name=='food'" src="assets/images/food.png" alt="">
           </div>
-          <div class="sum">&#8372; {{item.sum}}</div>
+          <div class="sum sumspends">&#8372; {{item.sum}}</div>
         </div>
 
         <div class="add">
@@ -66,7 +66,7 @@
     <img src="assets/images/close-button.png" alt="" class="close">
   </div>
 
-  <input matInput class="calculator__screen " (keypress)="onKeyPress($event)" autofocus (keydown)="onKeyDown($event)"
+  <input matInput class="calculator__screen" (keypress)="onKeyPress($event)" autofocus (keydown)="onKeyDown($event)"
     value='{{input}}'>
 
   <div class="valid" *ngIf="inputEmpty">Please fill in the field. Use only numbers</div>

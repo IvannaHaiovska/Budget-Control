@@ -4,6 +4,8 @@ import { UsersService } from 'src/app/shared/service/users/users.service';
 import { StorageService } from 'src/app/shared/service/storage/storage.service';
 
 import { IUser } from 'src/app/shared/interface/user/user';
+import { ISavings } from 'src/app/shared/interface/savings/savings';
+import { ISpends } from 'src/app/shared/interface/spends/spends';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ export class HomeComponent implements OnInit {
   public activeSaving: any;
   public activeSpend: any;
   public activateSavSpen: any;
+  public selectStart!:number;
   public users: Array<IUser> = [];
   public updateUser: any;
   public updateExpenses: any;
@@ -28,6 +31,8 @@ export class HomeComponent implements OnInit {
   public updateSpends: any;
   public spends: any[] = [];
   public savings: any[] = [];
+  public allspends: ISpends[] = [];
+  public allsavings: ISavings[] = [];
   public input: string = '';
   public result: string = '';
   public keyBinding = [
@@ -70,13 +75,12 @@ export class HomeComponent implements OnInit {
 
   GetLoginUser() {
     this.log = this.storageService.getUser();
-    this.LogUser = this.log.user;
-    console.log(this.LogUser);
-    
+    this.LogUser = this.log.user; 
   }
 
   GetSavings() {
-    this.userService.getAllSavings().subscribe(res => {
+    this.userService.getAllSavings().subscribe(res => { 
+      this.allsavings = res;
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
           this.savings.push(item);
@@ -87,6 +91,7 @@ export class HomeComponent implements OnInit {
 
   GetSpends() {
     this.userService.getAllSpends().subscribe(res => {
+      this.allspends = res;
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
           this.spends.push(item);
@@ -100,7 +105,7 @@ export class HomeComponent implements OnInit {
     this.clickSaving = false;
   }
 
-  Saving(index: number) {
+  Saving(index: ISavings) {
     this.activeSaving = index;
     if (this.clickIncome === true) {
       this.clickIncome = false;
@@ -112,7 +117,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  Spends(index: number) {
+  Spends(index: ISpends) {
     this.activeSpend = index;
     if (this.clickSaving == true) {
       this.clickIncome = false;
@@ -140,9 +145,12 @@ export class HomeComponent implements OnInit {
   }
 
   onKeyDown(event: any) {
+    console.log(event);
+    
     if (event.keyCode === 8 || event.keyCode === 37) {
       event.preventDefault();
-      this.input = this.input.slice(0, event.target.selectionStart - 1) + this.input.slice(event.target.selectionStart);
+      this.selectStart = 2;
+      this.input = this.input.slice(0, this.selectStart - 1) + this.input.slice(this.selectStart);
     }
   }
 
@@ -194,7 +202,6 @@ export class HomeComponent implements OnInit {
   }
 
   pressOperator(op: string) {
-
     //Do not allow operators more than once
     const lastKey = this.input[this.input.length - 1];
     if (lastKey === '/' || lastKey === '*' || lastKey === '-' || lastKey === '+') {
@@ -240,7 +247,7 @@ export class HomeComponent implements OnInit {
     }
 
     else {
-      if (this.activeSaving) {
+      if (this.activeSaving!='') {
         this.updateSavings = {
           id: this.activeSaving.id,
           sum: this.activeSaving.sum + this.result
@@ -260,9 +267,10 @@ export class HomeComponent implements OnInit {
           console.log(err);
         })
         this.calculate = false;
-        this.Reload();
+        // this.Reload();
       }
-      else if (this.activeSpend) {
+      else if (this.activeSpend!='') {
+
         this.updateUser = {
           id: this.LogUser.id,
           balance: this.users[this.activeSpend.users_id - 1].balance + (-this.result)
@@ -302,7 +310,7 @@ export class HomeComponent implements OnInit {
           console.log(err);
         })
         this.calculate = false;
-        this.Reload();
+        // this.Reload();
       }
     }
   }

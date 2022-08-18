@@ -15,7 +15,7 @@ const baseUrl = 'http://localhost:3000/users';
 
 export class UsersService {
   public users: Array<IUser> = [];
-
+public errorMessage = '';
   // Http Header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) { }
@@ -27,7 +27,7 @@ export class UsersService {
     return this.http.get<IUser>(`${baseUrl}/${id}`);
   }
   updateUser(id: number, data: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`${baseUrl}/${id}`, data);
+    return this.http.put<IUser>(`${baseUrl}/${id}`, data)
   }
   updateIncome(id: number, data: IUser): Observable<IUser> {
     return this.http.put<IUser>(`${baseUrl}/income/${id}`, data);
@@ -63,16 +63,15 @@ export class UsersService {
 
   // Error 
   handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Handle client error
-      errorMessage = error.error.message;
+      this.errorMessage = error.error.message;
     } else {
       // Handle server error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      this.errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
-    return throwError(errorMessage);
+    console.log(this.errorMessage);
+    return throwError(this.errorMessage);
   }
 
 }

@@ -11,6 +11,7 @@ export class AuthGuardService {
   constructor(
     private storageService: StorageService,
     private router: Router) { }
+    
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

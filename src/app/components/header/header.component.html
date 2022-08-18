@@ -27,7 +27,7 @@
         <img src="assets/images/user.png" alt="">
         <div class="text">
           <span>User:</span>
-          <span>{{LogUser.username}} {{LogUser.usersurname}}</span>
+          <span>{{LogUser?.username}} {{LogUser?.usersurname}}</span>
         </div>
       </div>
     </mat-list-item>
@@ -37,7 +37,7 @@
         <div class="text">
           <span>Balance:</span>
           <div *ngFor="let item of users">
-            <span *ngIf="item.id==LogUser.id">&#8372; {{item.balance}}</span></div>
+            <span *ngIf="item.id==LogUser.id"  >&#8372; {{item.balance}}</span></div>
         </div>
       </div>
     </mat-list-item>
@@ -58,7 +58,7 @@
         <img src="assets/images/calendar.png" alt="">
         <div class="text">
           <span>Date:</span>
-          <span>{{LogUser.create_at | date: 'dd.MM.YYYY, HH:mm'}}</span>
+          <span class="create">{{LogUser?.create_at | date: 'dd.MM.YYYY, HH:mm'}}</span>
         </div>
       </div>
     </mat-list-item>

@@ -9,6 +9,7 @@ const USER_KEY = 'auth-user';
 export class StorageService {
 
   constructor(private router: Router) { }
+  
   clean(): void {
     window.sessionStorage.clear();
   }
@@ -41,6 +42,7 @@ export class StorageService {
     }
     return false;
   }
+  
   public logOut(): any {
     window.sessionStorage.removeItem(USER_KEY);
     this.router.navigate(['login']);

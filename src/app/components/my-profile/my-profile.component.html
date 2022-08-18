@@ -6,25 +6,25 @@
   </section>
   <mat-card class="example-card">
     <mat-card-header>
-      <img mat-card-avatar [src]="LogUser.imagePath" (click)="ChooseAvatar()">
-      <mat-card-title class="hoverChange" mat-stroked-button>{{LogUser.username}}
+      <img mat-card-avatar [src]="LogUser?.imagePath" (click)="ChooseAvatar()" id="avatar">
+      <mat-card-title class="hoverChange" mat-stroked-button>{{LogUser?.username}}
         <mat-icon matSuffix mat-stroked-button (click)="Update('name')">mode_edit</mat-icon>
       </mat-card-title>
-      <mat-card-title class="hoverChange">{{LogUser.usersurname}}
+      <mat-card-title class="hoverChange">{{LogUser?.usersurname}}
         <mat-icon matSuffix (click)="Update('surname')" mat-stroked-button>mode_edit</mat-icon>
       </mat-card-title>
-      <mat-card-title class="hoverChange block" [ngStyle]="{'margin-top': '7px'}">{{LogUser.email}}
+      <mat-card-title class="hoverChange block" [ngStyle]="{'margin-top': '7px'}">{{LogUser?.email}}
         <mat-icon matSuffix (click)="Update('email')">mode_edit</mat-icon>
       </mat-card-title>
 
     </mat-card-header>
-    <img mat-card-image [src]="LogUser.imagePath">
+    <img mat-card-image [src]="LogUser?.imagePath">
     <mat-card-content>
       <div class="hoverChange">
         <span>
           Balance:
         </span>
-        <p> {{LogUser.balance}} &#8372;</p>
+        <p> {{LogUser?.balance}} &#8372;</p>
         <mat-icon matSuffix (click)="Update('balance')">mode_edit</mat-icon>
       </div>
       <div>
@@ -32,7 +32,7 @@
           Created at:
         </span>
         <mat-card-subtitle [ngStyle]="{'margin': '0 2px'}">
-          <p> {{LogUser.create_at | date: 'dd.MM.YYYY, HH:mm'}}</p>
+          <p> {{LogUser?.create_at | date: 'dd.MM.YYYY, HH:mm'}}</p>
         </mat-card-subtitle>
       </div>
 

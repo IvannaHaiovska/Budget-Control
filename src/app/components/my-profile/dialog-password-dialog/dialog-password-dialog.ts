@@ -41,7 +41,7 @@ export class DialogPasswordDialog {
 
     onNoClick(): void {
         this.dialogRef.close();
-        window.location.reload();
+        // window.location.reload();
     }
 
     CheckPassword() {

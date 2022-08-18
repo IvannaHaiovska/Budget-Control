@@ -2,13 +2,13 @@
   <div mat-dialog-content>
     <p>For changing {{data.updateItem}} you should enter your password</p>
     <mat-form-field appearance="fill">
-      <input matInput [(ngModel)]="password">
+      <input matInput [(ngModel)]="password" class="password">
     </mat-form-field>
   </div>
-  <p *ngIf="passwordWrong" [ngStyle]="{'color': color}">Passwort is not correct</p>
+  <p *ngIf="passwordWrong" class="passwordError" [ngStyle]="{'color': color}">Passwort is not correct</p>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="CheckPassword()">Next</button>
+    <button mat-button class="next" (click)="CheckPassword()">Next</button>
   </div>
 </div>
 
