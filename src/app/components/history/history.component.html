@@ -1,1 +1,30 @@
-<h3>Page is in progress...</h3>
+<app-header></app-header>
+<div class="content">
+  <h1>History</h1>
+  <div class="table">
+    <mat-tab-group [selectedIndex]="7">
+      <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.name">
+        <div class="year">
+          <mat-icon (click)="minusOne()">arrow_back_ios</mat-icon>
+        <span class="fs"> {{year}} </span> 
+          <mat-icon (click)="plusOne()">arrow_forward_ios</mat-icon>
+        </div>
+        <div class="border">
+          <table class="example-table">
+            <ng-container *ngFor="let item of history">
+              <tr
+                *ngIf="item.create_at.substr(5, 2) === tab.num && item.create_at.substr(0, 4) === year.toString() && item.users_id === LogUser.id ">
+                <td>&#8372; {{item.sum}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.create_at| date: 'dd.MM.YYYY'}}</td>
+              </tr>
+            </ng-container>
+            <ng-container  *ngIf="year>2022 || year<2020">
+                There is no information.
+                </ng-container>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

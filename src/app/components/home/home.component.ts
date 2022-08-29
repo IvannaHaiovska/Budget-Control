@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   public activeSaving: any;
   public activeSpend: any;
   public activateSavSpen: any;
-  public selectStart!:number;
+  public selectStart!: number;
   public users: Array<IUser> = [];
   public updateUser: any;
   public updateExpenses: any;
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     { charCode: 45, value: '-' },
     { charCode: 43, value: '+' }
   ];
-
+  public history: any;
   constructor(
     private storageService: StorageService,
     private userService: UsersService
@@ -75,11 +75,11 @@ export class HomeComponent implements OnInit {
 
   GetLoginUser() {
     this.log = this.storageService.getUser();
-    this.LogUser = this.log.user; 
+    this.LogUser = this.log.user;
   }
 
   GetSavings() {
-    this.userService.getAllSavings().subscribe(res => { 
+    this.userService.getAllSavings().subscribe(res => {
       this.allsavings = res;
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
@@ -146,7 +146,7 @@ export class HomeComponent implements OnInit {
 
   onKeyDown(event: any) {
     console.log(event);
-    
+
     if (event.keyCode === 8 || event.keyCode === 37) {
       event.preventDefault();
       this.selectStart = 2;
@@ -247,7 +247,19 @@ export class HomeComponent implements OnInit {
     }
 
     else {
-      if (this.activeSaving!='') {
+      if (this.activeSaving != '') {
+        this.history = {
+          category: `savings (${this.activeSaving.name})`,
+          sum: this.result,
+          users_id: this.LogUser.id,
+          create_at: new Date()
+        }
+        this.userService.createHistory(this.history).subscribe(() => {
+          console.log('History create successfully!')
+        }, (err) => {
+          console.log(err);
+        })
+
         this.updateSavings = {
           id: this.activeSaving.id,
           sum: this.activeSaving.sum + this.result
@@ -267,51 +279,62 @@ export class HomeComponent implements OnInit {
           console.log(err);
         })
         this.calculate = false;
-        // this.Reload();
+        this.Reload();
       }
-      else if (this.activeSpend!='') {
-
-        this.updateUser = {
-          id: this.LogUser.id,
-          balance: this.users[this.activeSpend.users_id - 1].balance + (-this.result)
+      else if (this.activeSpend != '') {
+        
+        this.history = {
+          category: `spends (${this.activeSpend.name})`,
+          sum: this.result,
+          users_id: this.LogUser.id,
+          create_at: new Date()
         }
-        this.userService.updateBalance(this.activeSpend.users_id, this.updateUser).subscribe(() => {
-          console.log('User updated successfully!')
-        }, (err) => {
-          console.log(err);
-        });
-        this.updateExpenses = {
-          id: this.LogUser.id,
-          expenses: this.users[this.activeSpend.users_id - 1].expenses + this.result
-        }
-        this.userService.updateExpenses(this.activeSpend.users_id, this.updateExpenses).subscribe(() => {
-          console.log('User updated successfully!')
-        }, (err) => {
-          console.log(err);
-        });
-
-
-        this.updateSavings = {
-          id: this.activateSavSpen.id,
-          sum: this.activateSavSpen.sum + (-this.result)
-        };
-        this.userService.updateSavings(this.activateSavSpen.id, this.updateSavings).subscribe(() => {
-          console.log('Saving updated successfully!')
+        this.userService.createHistory(this.history).subscribe(() => {
+          console.log('History create successfully!')
         }, (err) => {
           console.log(err);
         })
-        this.updateSpends = {
-          id: this.activeSpend.id,
-          sum: this.activeSpend.sum + this.result
-        };
-        this.userService.updateSpends(this.activeSpend.id, this.updateSpends).subscribe(() => {
-          console.log('Spends updated successfully!')
-        }, (err) => {
-          console.log(err);
-        })
-        this.calculate = false;
-        // this.Reload();
       }
+
+      this.updateUser = {
+        id: this.LogUser.id,
+        balance: this.users[this.activeSpend.users_id - 1].balance + (-this.result)
+      }
+      this.userService.updateBalance(this.activeSpend.users_id, this.updateUser).subscribe(() => {
+        console.log('User updated successfully!')
+      }, (err) => {
+        console.log(err);
+      });
+      this.updateExpenses = {
+        id: this.LogUser.id,
+        expenses: this.users[this.activeSpend.users_id - 1].expenses + this.result
+      }
+      this.userService.updateExpenses(this.activeSpend.users_id, this.updateExpenses).subscribe(() => {
+        console.log('User updated successfully!')
+      }, (err) => {
+        console.log(err);
+      });
+
+      this.updateSavings = {
+        id: this.activateSavSpen.id,
+        sum: this.activateSavSpen.sum + (-this.result)
+      };
+      this.userService.updateSavings(this.activateSavSpen.id, this.updateSavings).subscribe(() => {
+        console.log('Saving updated successfully!')
+      }, (err) => {
+        console.log(err);
+      })
+      this.updateSpends = {
+        id: this.activeSpend.id,
+        sum: this.activeSpend.sum + this.result
+      };
+      this.userService.updateSpends(this.activeSpend.id, this.updateSpends).subscribe(() => {
+        console.log('Spends updated successfully!')
+      }, (err) => {
+        console.log(err);
+      })
+      this.calculate = false;
+      this.Reload();
     }
   }
 

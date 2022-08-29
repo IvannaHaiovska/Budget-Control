@@ -218,7 +218,7 @@ describe('UsersService', () => {
       'name': 'cash',
       'sum': 2000,
       'users_id': 1,
-      'createdAt': new Date('09.08.2022, 15:49')
+      'create_at': new Date('09.08.2022, 15:49')
     };
 
     usersService.updateSavings(id, savings).subscribe((data) => {
@@ -257,7 +257,7 @@ describe('UsersService', () => {
       'name': 'food',
       'sum': 2000,
       'users_id': 2,
-      'createdAt': new Date('09.08.2022, 15:49')
+      'create_at': new Date('09.08.2022, 15:49')
     };
 
     usersService.updateSpends(id, spends).subscribe((data) => {

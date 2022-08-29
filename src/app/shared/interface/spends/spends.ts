@@ -3,5 +3,5 @@ export interface ISpends {
     name: string,
     sum: number,
     users_id: number,
-    createdAt: Date
+    create_at: Date
 }

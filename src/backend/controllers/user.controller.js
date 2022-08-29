@@ -130,12 +130,27 @@ exports.updateSav = (req, res) => {
     });
   });
 };
-
 exports.findAllSp = (req, res) => {
   dbConn.query('SELECT * FROM budgetControl.spends', function (error, results) {
     if (error) throw error;
     return res.send(results);
   });
+};
+
+exports.findHistory = (req, res) => {
+  dbConn.query('SELECT * FROM budgetControl.history', function (error, results) {
+    if (error) throw error;
+    return res.send(results);
+  });
+};
+
+exports.findHistoryByYear = (req, res) => {
+  if (!req.body) return res.sendStatus(400);
+  dbConn.query(`SELECT * FROM budgetControl.history WHERE year = '${req.params.year}'`,
+    function (error, results, fields) {
+      if (error) throw error;
+      return res.send(results);
+    });
 };
 
 exports.updateSp = (req, res) => {
@@ -155,6 +170,25 @@ exports.updateSp = (req, res) => {
       error: false,
       data: results,
       message: 'Spends has been updated successfully.'
+    });
+  });
+};
+
+
+exports.createHistory = (req, res) => {
+  let id = req.body.id;
+  let category = req.body.category;
+  let sum = req.body.sum;
+  let users_id = req.body.users_id;
+  let create_at = req.body.create_at;
+
+  dbConn.query("INSERT INTO budgetControl.history SET category = ?, sum = ?, users_id = ?  ", 
+    [category, sum, users_id, id, create_at], function (error, results, fields) {
+    if (error) throw error;
+    return res.send({
+      error: false,
+      data: results,
+      message: 'New history has been created successfully.'
     });
   });
 };

@@ -1,0 +1,127 @@
+.content {
+  width: 94.5%;
+  min-height: 620px;
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
+  margin: 35px 43px 0 43px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.mat-raised-button {
+  margin: 10px 10px 0;
+}
+
+.mat-typography h1 {
+  margin: 10px auto;
+  font-weight: 600;
+  font-family: sans-serif;
+  font-size: 1.8em;
+  width: 10%;
+  color: rgba(28, 28, 28, 0.868);
+}
+
+.table {
+  border: 2px solid rgb(20, 20, 20);
+  border-radius: 0.7em;
+  padding: 10px;
+  width: 88%;
+  margin: 20px auto;
+}
+
+.border {
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 0.4em;
+  padding: 20px;
+  margin: 20px;
+}
+
+/* Styles for tab labels */
+.mat-tab-label {
+  min-width: 101px !important;
+  padding: 5px;
+  background-color: transparent;
+  color: rgba(78, 206, 136, 0.913);
+  font-weight: 700;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+  min-width: 101px !important;
+  background-color: transparent;
+  color: rgba(78, 206, 136, 0.913);
+  font-weight: 700;
+}
+
+.mat-tab-label-active {
+  background: #fafafa;
+}
+
+.mat-tab-labels {
+  border-bottom: 1px solid rgba(204, 204, 204, 0.95);
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: rgba(236, 236, 236, 0.381);
+  color: rgba(78, 206, 136, 0.913);
+  box-sizing: border-box;
+  border-top: 2px solid rgba(204, 204, 204, 0.95);
+  border-left: 1px solid rgba(204, 204, 204, 0.95);
+  border-right: 1px solid rgba(204, 204, 204, 0.95);
+  border-bottom: 1px solid #fafafa;
+  height: 50px;
+}
+
+.mat-tab-nav-bar,
+.mat-tab-header {
+  border-bottom: none;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  font-size: 1.2em;
+  color: rgb(41, 41, 41);
+}
+
+table tr {
+  padding: 10px;
+  background: #efefef;
+}
+
+table td {
+  padding: 5px 10px;
+  text-align: left; 
+  border-bottom: 1px solid rgb(215, 215, 215); padding-left: 100px;
+}
+
+table tr:nth-child(odd) {
+  background: #fff;
+}
+
+table tr:nth-child(even) {
+  background: #F7F7F7;
+}
+tr:first-child{
+  font-weight: bold;
+}
+tr:first-child td:nth-child(even){
+color: rgba(78, 206, 136, 0.913);
+}
+
+.year{
+  margin: 50px auto 30px;
+  width: 200px;
+  font-size: 1.2em;
+  color: rgb(84, 84, 84);
+  font-weight: bold;
+}
+.fs{
+  font-size: 1.8em;
+}

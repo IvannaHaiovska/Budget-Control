@@ -28,6 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "mocha": "^10.0.0",
+    "moment": "^2.29.4",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "passport": "^0.6.0",

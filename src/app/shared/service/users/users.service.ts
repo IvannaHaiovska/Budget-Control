@@ -61,6 +61,18 @@ public errorMessage = '';
       )
   }
 
+  getHistory(): Observable<any[]> {
+    return this.http.get<any[]>(`${baseUrl}/history`);
+  }
+  getHistoryByYear(year: number): Observable<any> {
+    return this.http.get<any>(`${baseUrl}/${year}`);
+  }
+  createHistory(item:any):Observable<any> {
+    return this.http.post<any>(`${baseUrl}/history/${item.month}`, item, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
   // Error 
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
