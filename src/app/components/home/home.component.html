@@ -15,18 +15,19 @@
       <hr>
       <div class="flex">
         <div class="block savings" *ngFor="let item of savings; let i as index">
-          <span>{{item.name}}</span>
-          <div class="circle" (click)="Saving(i)" [class.active]="item == activeSaving"
-            [ngClass]="{ useItem: clickIncome}">
-            <img *ngIf="item.name=='cash'" src="assets/images/cash.png" alt="">
-            <img *ngIf="item.name=='bank'" src="assets/images/bank.png" alt="">
+          <div *ngIf="item.create_at.substr(5, 2) === '09'">
+            <span>{{item.name}}</span>
+            <div class="circle" (click)="Saving(i)" [class.active]="item == activeSaving"
+              [ngClass]="{ useItem: clickIncome}">
+              <img *ngIf="item.name=='cash'" src="assets/images/cash.png" alt="">
+              <img *ngIf="item.name=='bank'" src="assets/images/bank.png" alt="">
+            </div>
+            <div class="sum sumsaving">&#8372; {{item.sum}}</div>
           </div>
-          <div class="sum sumsaving">&#8372; {{item.sum}}</div>
         </div>
-
         <div class="add">
           <div class="circle">
-            <div class="plus">
+            <div class="plus" (click)="createSavings()">
               <img src="assets/images/add.png" alt="">
             </div>
           </div>
@@ -38,18 +39,20 @@
       <hr>
       <div class="flex">
         <div class="block spends" *ngFor="let item of spends; let i as index">
-          <span class="ml">{{item.name}}</span>
-          <div class="circle" (click)="
+          <div *ngIf="item.create_at.substr(5, 2) === '09'">
+            <span class="ml">{{item.name}}</span>
+            <div class="circle" (click)="
           Spends(i)" [class.active]="item == activeSpend" [ngClass]="{ useItem1: clickSaving}">
-            <img *ngIf="item.name=='girlfriend'" src="assets/images/high-heels.png" alt="">
-            <img *ngIf="item.name=='food'" src="assets/images/food.png" alt="">
+              <img *ngIf="item.name=='girlfriend'" src="assets/images/high-heels.png" alt="">
+              <img *ngIf="item.name=='food'" src="assets/images/food.png" alt="">
+            </div>
+            <div class="sum sumspends">&#8372; {{item.sum}}</div>
           </div>
-          <div class="sum sumspends">&#8372; {{item.sum}}</div>
         </div>
 
         <div class="add">
           <div class="circle">
-            <div class="plus">
+            <div class="plus" (click)="createSpends()">
               <img src="assets/images/add.png" alt="">
             </div>
           </div>
@@ -59,7 +62,24 @@
   </div>
 </main>
 
-<div class="underblock" *ngIf="calculate"></div>
+<div class="create" *ngIf="create">
+  <div (click)="close()">
+    <img src="assets/images/close-button.png" alt="" class="closeCreate">
+  </div>
+  <div class="example-container">
+    <mat-form-field>
+      <mat-label>Enter name of category</mat-label>
+      <input matInput placeholder="Name" [(ngModel)]='name'>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter sum</mat-label>
+      <input matInput #input maxlength="10" placeholder="Sum" [(ngModel)]='sum'>
+    </mat-form-field>
+    <button mat-raised-button class="createBtn" (click)="createCategory()">Create</button>
+  </div>
+</div>
+
+<div class="underblock" *ngIf="calculate || create"></div>
 
 <div class="calculator" *ngIf="calculate">
   <div (click)="close()">

@@ -54,38 +54,38 @@ describe('StatisticComponent', () => {
     statisticComponent = fixture.componentInstance;
     fixture.detectChanges();
     statisticComponent.log = log;
-    mockSavings = {id:1, name: 'cash', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') }
+    mockSavings = {id:1, name: 'cash', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') }
     statisticComponent.savings = mockSavings;
     fixture.detectChanges();
     storageService = TestBed.get(StorageService);
     usersService = TestBed.get(UsersService);
-    mockSpends = {id:1, name: 'girlfriend', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') }
+    mockSpends = {id:1, name: 'girlfriend', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') }
     statisticComponent.spends = mockSpends;
     fixture.detectChanges();
     spyLogUser = spyOn(storageService, 'getUser').and.callThrough();
     spySavings = spyOn(usersService, 'getAllSavings').and.callThrough();
     spySpends = spyOn(usersService, 'getAllSpends').and.callThrough();
     Savings = [
-      { id: 1, name: 'cash', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 2, name: 'bank', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 3, name: 'cash', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 4, name: 'bank', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49') }, { id: 5, name: 'cash', sum: 500, users_id: 3, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 6, name: 'bank', sum: 500, users_id: 3, createdAt: new Date('09.08.2022, 15:49') }
+      { id: 1, name: 'cash', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') },
+      { id: 2, name: 'bank', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') },
+      { id: 3, name: 'cash', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49') },
+      { id: 4, name: 'bank', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49') }, { id: 5, name: 'cash', sum: 500, users_id: 3, create_at: new Date('09.08.2022, 15:49') },
+      { id: 6, name: 'bank', sum: 500, users_id: 3, create_at: new Date('09.08.2022, 15:49') }
     ];
 
     fixture.detectChanges();
-    mockLogSaving =  { id: 4, name: 'bank', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49') };
+    mockLogSaving =  { id: 4, name: 'bank', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49') };
 
     Spends = [
-      { id: 1, name: 'girlfriend', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 2, name: 'food', sum: 500, users_id: 1, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 3, name: 'girlfriend', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 4, name: 'food', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49')},
-      { id: 5, name: 'girlfriend', sum: 500, users_id: 3, createdAt: new Date('09.08.2022, 15:49') },
-      { id: 6, name: 'food', sum: 500, users_id: 3, createdAt: new Date('09.08.2022, 15:49') }];
+      { id: 1, name: 'girlfriend', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') },
+      { id: 2, name: 'food', sum: 500, users_id: 1, create_at: new Date('09.08.2022, 15:49') },
+      { id: 3, name: 'girlfriend', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49') },
+      { id: 4, name: 'food', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49')},
+      { id: 5, name: 'girlfriend', sum: 500, users_id: 3, create_at: new Date('09.08.2022, 15:49') },
+      { id: 6, name: 'food', sum: 500, users_id: 3, create_at: new Date('09.08.2022, 15:49') }];
 
     mockLogSpends =
-    { id: 4, name: 'food', sum: 500, users_id: 2, createdAt: new Date('09.08.2022, 15:49')};
+    { id: 4, name: 'food', sum: 500, users_id: 2, create_at: new Date('09.08.2022, 15:49')};
 
   });
 

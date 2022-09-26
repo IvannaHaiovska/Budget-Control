@@ -10,6 +10,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import {MatTableModule} from '@angular/material/table';
     MatInputModule,
     MatDialogModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   exports: [
     MatToolbarModule,
@@ -34,7 +38,8 @@ import {MatTableModule} from '@angular/material/table';
     MatInputModule,
     MatDialogModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule
   ],
   providers:[
     { provide: MAT_DIALOG_DATA, useValue: {} },

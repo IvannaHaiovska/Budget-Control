@@ -105,5 +105,7 @@
       }
     }
   },
-  "defaultProject": "final_project"
+  "cli": {
+    "analytics": false
+  }
 }

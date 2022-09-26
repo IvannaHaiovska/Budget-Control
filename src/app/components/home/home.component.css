@@ -75,8 +75,8 @@ hr {
   margin: 20px;
 }
 
-.spends .ml {
-  margin-left: 18px;
+.spends .ml:nth-child(1) {
+  margin-left: 26px;
 }
 
 .useItem,
@@ -84,7 +84,12 @@ hr {
 div.active {
   box-shadow: 0 0 10px rgba(78, 206, 136, 0.913);
 }
-
+.example-container{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 10px 30px;
+}
 .underblock {
   width: 100%;
   min-height: 750px;
@@ -93,8 +98,15 @@ div.active {
   z-index: 5;
   background-color: rgba(255, 255, 255, 0);
 }
+.createBtn{
+  width: 30%;
+  margin: 0 auto;
+  font-size: 1.2em;
+  background-color: rgba(78, 206, 136, 0.913);
+  height: 35px;
+}
 
-.calculator {
+.calculator, .create {
   position: absolute;
   top: 8%;
   left: 37%;
@@ -137,6 +149,11 @@ button {
   margin: 20px 0 20px 92%;
   width: 20px;
   height: 20px;
+}
+.closeCreate{
+  margin: 20px 0 20px 92%;
+  width: 10px;
+  height: 10px;
 }
 
 .calculator__check {

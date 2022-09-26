@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/app/shared/material/material.module.module';
@@ -36,7 +37,7 @@ import { DialogEditUserDialogComponent } from './components/my-profile/dialog-ed
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-   
+    ReactiveFormsModule,
   ],
   exports: [
     RouterModule

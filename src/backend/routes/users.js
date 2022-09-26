@@ -4,7 +4,9 @@ module.exports = app => {
 
   router.get("/", users.findAll);
   router.get("/savings", users.findAllSav);
+  router.post("/savings", users.createSav);
   router.get("/spends", users.findAllSp);
+  router.post("/spends", users.createSp);
   router.get("/history", users.findHistory);
   router.get("/:id", users.findOne);
   router.get("/history/:year", users.findHistoryByYear);

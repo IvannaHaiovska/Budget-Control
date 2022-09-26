@@ -110,6 +110,32 @@ exports.findAllSav = (req, res) => {
   });
 };
 
+// exports.findAllStatisticSav = (req, res) => {
+//   dbConn.query('SELECT * FROM budgetControl.savings', function (error, results) {
+//     if (error) throw error;
+//     console.log(req.params.sum);
+//     // return res.send(results);
+//   });
+// };
+
+
+exports.createSav = (req, res) => {
+  let id = req.body.id;
+  let name = req.body.name;
+  let sum = req.body.sum;
+  let users_id = req.body.users_id;
+  let create_at = req.body.create_at;
+
+  dbConn.query("INSERT INTO budgetControl.savings SET name = ?, sum = ?, users_id = ?", [name, sum, users_id, id, create_at], function (error, results, fields) {
+    if (error) throw error;
+    return res.send({
+      error: false,
+      data: results,
+      message: 'Savings has been create successfully.'
+    });
+  });
+};
+
 exports.updateSav = (req, res) => {
   let user_id = req.body.id;
   let sum = req.body.sum;
@@ -130,6 +156,8 @@ exports.updateSav = (req, res) => {
     });
   });
 };
+
+
 exports.findAllSp = (req, res) => {
   dbConn.query('SELECT * FROM budgetControl.spends', function (error, results) {
     if (error) throw error;
@@ -151,6 +179,23 @@ exports.findHistoryByYear = (req, res) => {
       if (error) throw error;
       return res.send(results);
     });
+};
+
+exports.createSp = (req, res) => {
+  let id = req.body.id;
+  let name = req.body.name;
+  let sum = req.body.sum;
+  let users_id = req.body.users_id;
+  let create_at = req.body.create_at;
+
+  dbConn.query("INSERT INTO budgetControl.spends SET name = ?, sum = ?, users_id = ?", [name, sum, users_id, id, create_at], function (error, results, fields) {
+    if (error) throw error;
+    return res.send({
+      error: false,
+      data: results,
+      message: 'Іpends has been create successfully.'
+    });
+  });
 };
 
 exports.updateSp = (req, res) => {

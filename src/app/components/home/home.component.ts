@@ -20,6 +20,12 @@ export class HomeComponent implements OnInit {
   public clickSaving = false;
   public calculate = false;
   public inputEmpty = false;
+  public create = false;
+  public createSav = false;
+  public createSp = false;
+  public name!: string;
+  public sum!: number;
+  public category: any;
   public activeSaving: any;
   public activeSpend: any;
   public activateSavSpen: any;
@@ -100,6 +106,45 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  createSavings() {
+    this.createSav = true;
+    this.create = true;
+    this.createSp = false;
+  }
+
+  createSpends() {
+    this.createSp = true;
+    this.create = true;
+    this.createSav = false;
+  }
+
+  createCategory() {
+    this.category = {
+      name: this.name,
+      sum: this.sum,
+      users_id: this.LogUser.id
+    }
+    if (this.createSav == true) {
+      this.userService.createSavings(this.category).subscribe(() => {
+        console.log('History create successfully!')
+      }, (err) => {
+        console.log(err);
+      });
+      this.Reload();
+    }
+    else if (this.createSp == true) {
+      this.userService.createSpends(this.category).subscribe(() => {
+        console.log('History create successfully!')
+      }, (err) => {
+        console.log(err);
+      });
+      this.Reload();
+    }
+    this.create = false;
+    this.createSav = false;
+    this.createSp = false;
+  }
+
   Income() {
     this.clickIncome = true;
     this.clickSaving = false;
@@ -142,6 +187,7 @@ export class HomeComponent implements OnInit {
     this.activeSpend = '';
     this.activeSaving = '';
     this.inputEmpty = false;
+    this.create = false;
   }
 
   onKeyDown(event: any) {
@@ -282,7 +328,7 @@ export class HomeComponent implements OnInit {
         this.Reload();
       }
       else if (this.activeSpend != '') {
-        
+
         this.history = {
           category: `spends (${this.activeSpend.name})`,
           sum: this.result,
@@ -337,6 +383,7 @@ export class HomeComponent implements OnInit {
       this.Reload();
     }
   }
+
 
   Reload() {
     window.location.reload();

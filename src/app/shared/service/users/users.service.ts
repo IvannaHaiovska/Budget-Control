@@ -42,6 +42,12 @@ public errorMessage = '';
   getAllSavings(): Observable<ISavings[]> {
     return this.http.get<ISavings[]>(`${baseUrl}/savings`);
   }
+  createSavings(item:any):Observable<ISavings> {
+    return this.http.post<ISavings>(`${baseUrl}/savings`, item, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
 
   updateSavings(id: number, data: any): Observable<ISavings> {
     return this.http.put<ISavings>(`${baseUrl}/savings/${id}`, data, { headers: this.httpHeaders })
@@ -53,7 +59,13 @@ public errorMessage = '';
   getAllSpends(): Observable<ISpends[]> {
     return this.http.get<ISpends[]>(`${baseUrl}/spends`);
   }
-
+  createSpends(item:any):Observable<ISpends> {
+    return this.http.post<ISpends>(`${baseUrl}/spends`, item, { headers: this.httpHeaders })
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+  
   updateSpends(id: number, data: any): Observable<ISpends> {
     return this.http.put<ISpends>(`${baseUrl}/spends/${id}`, data, { headers: this.httpHeaders })
       .pipe(

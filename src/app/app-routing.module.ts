@@ -6,7 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuardService } from './shared/service/authguard/auth.guard.service'; 
 import { MyProfileComponent } from './components/my-profile/my-profile.component'; 
 import { HistoryComponent } from './components/history/history.component';
-import { StatisticComponent } from './components/statistic/statistic.component';
+import { StatisticComponent } from './components/statistic/statistic.component'; 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

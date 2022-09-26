@@ -39,6 +39,10 @@
   padding: 20px;
   margin: 20px;
 }
+.topBlock{
+  display: flex;
+  flex-direction: row;
+}
 
 /* Styles for tab labels */
 .mat-tab-label {
