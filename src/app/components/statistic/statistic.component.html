@@ -2,7 +2,9 @@
 <div class="content">
   <h1>Statistic</h1>
   <div class="schedule">
-    <div id="barChart"></div>
+    <!-- <div id="barChart"></div>
+     -->
+     <div id="chart-column"></div>
     <mat-form-field>
       <input matInput [matDatepicker]="dp" placeholder="Month and Year" [formControl]="date">
       <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
@@ -24,7 +26,7 @@
         </tr>
          <ng-container *ngFor="let item of allsavings; index as i;">
      
-        <tr [ngStyle]="{'color': getRandomColor()}">
+        <tr [ngStyle]="{'color': getRandomColor()}" *ngIf="item.create_at.substr(5, 2) === month.substr(3, 2)">
             <td>{{i+1}}</td>
           <td>{{item.name}}</td>
           <td>{{item.sum*100/LogUser.balance | number : '1.1-2'}} %</td>

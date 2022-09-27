@@ -29,7 +29,7 @@
     margin: 30px auto; 
       width: 60.3%;
       height: 400px;
-      overflow-y:scroll;
+      /* overflow-y:scroll; */
   }
   th{
     padding-bottom: 10px;
@@ -50,7 +50,6 @@
   }
   
   table td {
-    padding: 5px 10px;
     text-align: left; 
     border-bottom: 1px solid rgb(215, 215, 215); padding: 10px 64px;
   }
@@ -87,3 +86,16 @@
     
     overflow-x:scroll;
   }
+
+  /* hide scrollbar but allow scrolling */
+  .border {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
+}
+
+.border::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+/* other styling */

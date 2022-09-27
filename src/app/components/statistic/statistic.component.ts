@@ -11,7 +11,9 @@ import { StorageService } from 'src/app/shared/service/storage/storage.service';
 import { ISavings } from 'src/app/shared/interface/savings/savings';
 import { ISpends } from 'src/app/shared/interface/spends/spends';
 import { IUser } from 'src/app/shared/interface/user/user';
-
+import * as Highcharts from 'highcharts';
+import HighchartsMore from 'highcharts/highcharts-more';
+import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
@@ -57,7 +59,6 @@ export class StatisticComponent implements OnInit {
   public spends!: ISpends;
   public savings!: ISavings;
   public allsavings: any[] = [];
-
   width!: number;
   height!: number;
   margin = { top: 20, right: 20, bottom: 30, left: 40 };
@@ -66,6 +67,7 @@ export class StatisticComponent implements OnInit {
   svg: any;
   g: any;
   StatsBar:any[]= [];
+  public month='26/09/2022'
 
 // якщо піставляю ці дані то графік працює
 public StatsBarChart= [
@@ -98,75 +100,148 @@ public StatsBarChart= [
     this.GetSpends();
     this.GetAllSavings();
 
-    this.initSvg();
-    this.initAxis();
-    this.drawAxis();
-    this.drawBars();
+    // this.initSvg();
+    // this.initAxis();
+    // this.drawAxis();
+    // this.drawBars();
+    this.createChartColumn();
   }
 
  GetAllSavings() {
     this.userService.getAllSavings().subscribe(res => {
-      for(let i=0; i<res.length; i++){
-        if (res[i].users_id === this.LogUser.id) {
-          // якщо підставляю ці, що потрібно тобто весь обсяг з бази даних то не відображає графік
-          this.StatsBar[i]= {name: res[i].name, sum:res[i].sum
-        }
-      }
-    }
+    //   for(let i=0; i<res.length; i++){
+    //     if (res[i].users_id === this.LogUser.id) {
+    //       this.StatsBar.push( {name: res[i].name, sum:res[i].sum
+    //     })
+    //   }
+    // }
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
           this.allsavings.push(item);
         }
+        if(item.create_at){
+
+        }
+      
+        
       })
     })
-
+  console.log(this.StatsBar);
   }
-  initSvg() {
-    this.svg = d3.select('#barChart')
-      .append('svg')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('viewBox', '0 0 900 500');
-    this.g = this.svg.append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+  private getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+  private createChartColumn(): void {
+    let date = new Date();
+    const data: any[] = [];
+
+    // ці дані працюють, які вказані вище
+    for (let i = 0; i < 10; i++) {
+      date.setDate(new Date().getDate() + i);
+      data.push({
+        name: this.StatsBarChart[i].name,
+        y: this.StatsBarChart[i].sum,
+      });
+    }
+
+      // якщо підставляю ці, що потрібно тобто весь обсяг з бази даних то не відображає графік
+    // this.userService.getAllSavings().subscribe(res => {
+    //  res.map(item=>{
+    //    if (item.users_id === this.LogUser.id) {
+    //       data.push({
+    //         name: `${item.name}`, 
+    //         y:item.sum
+    //     })
+    //   }
+    // })
+    // })
+       
+    const chart = Highcharts.chart('chart-column' as any, {
+      chart: {
+        type: 'column',
+      },
+      title: {
+        text: 'Column Chart',
+      },
+      credits: {
+        enabled: false,
+      },
+      legend: {
+        enabled: false,
+      },
+      yAxis: {
+        min: 0,
+        title: undefined,
+      },
+      xAxis: {
+        type: 'category',
+      },
+      tooltip: {
+        headerFormat: `<div>Date: {point.key}</div>`,
+        pointFormat: `<div>{series.name}: {point.y}</div>`,
+        shared: true,
+        useHTML: true,
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true,
+          },
+        },
+      },
+      series: [{
+        name: 'Amount',
+        data,
+      }],
+    } as any);
   }
 
-  initAxis() {
-    this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
-    this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-    this.x.domain(this.StatsBar.map((d:any) => d.name));
-    this.y.domain([0, d3Array.max(this.StatsBar, (d:any) =>  d.sum)]);
-  }
+  // initSvg() {
+  //   this.svg = d3.select('#barChart')
+  //     .append('svg')
+  //     .attr('width', '100%')
+  //     .attr('height', '100%')
+  //     .attr('viewBox', '0 0 900 500');
+  //   this.g = this.svg.append('g')
+  //     .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+  // }
 
-  drawAxis() {
-    this.g.append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x));
-    this.g.append('g')
-      .attr('class', 'axis axis--y')
-      .call(d3Axis.axisLeft(this.y))
-      .append('text')
-      .attr('class', 'axis-title')
-      .attr('transform', 'rotate(-90)')
-      .attr('y', 6)
-      .attr('dy', '0.71em')
-      .attr('text-anchor', 'end')
-      .text('Sum');
-  }
+  // initAxis() {
+  //   this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
+  //   this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
+  //   this.x.domain(this.StatsBar.map((d:any) => d.name));
+  //   this.y.domain([0, d3Array.max(this.StatsBar, (d:any) =>  d.sum)]);
+  // }
 
-  drawBars() {
+  // drawAxis() {
+  //   this.g.append('g')
+  //     .attr('class', 'axis axis--x')
+  //     .attr('transform', 'translate(0,' + this.height + ')')
+  //     .call(d3Axis.axisBottom(this.x));
+  //   this.g.append('g')
+  //     .attr('class', 'axis axis--y')
+  //     .call(d3Axis.axisLeft(this.y))
+  //     .append('text')
+  //     .attr('class', 'axis-title')
+  //     .attr('transform', 'rotate(-90)')
+  //     .attr('y', 6)
+  //     .attr('dy', '0.71em')
+  //     .attr('text-anchor', 'end')
+  //     .text('Sum');
+  // }
+
+  // drawBars() {
     
-    this.g.selectAll('.bar')
-      .data(this.StatsBar)
-      .enter().append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d: any) => this.x(d.name))
-      .attr('y', (d: any) => this.y(d.sum))
-      .attr('width', this.x.bandwidth())
-      .attr('fill', '#498bfc')
-      .attr('height', (d: any) => this.height - this.y(d.sum));
-  }
+  //   this.g.selectAll('.bar')
+  //     .data(this.StatsBar)
+  //     .enter().append('rect')
+  //     .attr('class', 'bar')
+  //     .attr('x', (d: any) => this.x(d.name))
+  //     .attr('y', (d: any) => this.y(d.sum))
+  //     .attr('width', this.x.bandwidth())
+  //     .attr('fill', '#498bfc')
+  //     .attr('height', (d: any) => this.height - this.y(d.sum));
+  // }
 
  
   chosenYearHandler(normalizedYear: Moment) {
@@ -179,7 +254,10 @@ public StatsBarChart= [
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
-    datepicker.close();
+    datepicker.close(); 
+    this.month = moment(this.date.value).format('DD/MM/YYYY');
+    console.log(this.month);
+    
   }
 
   GetLoginUser() {
