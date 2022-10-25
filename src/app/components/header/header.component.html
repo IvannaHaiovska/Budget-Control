@@ -3,23 +3,7 @@
     <img src="assets/images/menu.png" alt="">
   </button>
 
-  <mat-menu #menu="matMenu" class="matmenu">   
-    <div class="menubox" *ngIf="isNav">
-      <div class="close" (click)="close()">
-        <img src="assets/images/close.png" alt="">
-      </div>
-    <button mat-menu-item *ngFor="let item of routes" [routerLink]="item.route">
-      <div class="f">
-        <img [src]="item.imagePath" alt="">
-        <span>{{item.name}}</span></div>
-    </button>
-    <button mat-menu-item (click)="LogOut()">
-      <div class="f">
-        <img src="assets/images/exit.png" alt="">
-        <span>Log Out</span>
-      </div>
-    </button></div>
-  </mat-menu>
+ 
 
   <mat-list class="userInfo">
     <mat-list-item>
@@ -66,3 +50,20 @@
 </mat-toolbar>
 <div class="black-block" *ngIf="isNav" (click)="close()">
 </div>
+ <mat-menu #menu="matMenu" class="matMenu" style="overflow: visible">   
+    <div class="menuBox" *ngIf="isNav">
+      <div class="close" (click)="close()">
+        <img src="assets/images/close.png" alt="">
+      </div>
+    <button mat-menu-item *ngFor="let item of routes" [routerLink]="item.route">
+      <div class="f">
+        <img [src]="item.imagePath" alt="">
+        <span>{{item.name}}</span></div>
+    </button>
+    <button mat-menu-item (click)="LogOut()">
+      <div class="f">
+        <img src="assets/images/exit.png" alt="">
+        <span>Log Out</span>
+      </div>
+    </button></div>
+  </mat-menu>

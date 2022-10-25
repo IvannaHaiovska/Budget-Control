@@ -16,6 +16,7 @@ mat-toolbar {
 
 button {
   border-bottom: 1px solid rgba(78, 206, 136, 0.913);
+  font-size: 1.1em;
 }
 
 button img, .close img {
@@ -61,20 +62,16 @@ button span{
   text-transform: uppercase;
   margin-right: 5px;
 }
-.matmenu{
-  width: 600px;
-}
-.matmenu .menubox{
+
+.matMenu .menuBox{
   padding-top: 50px;
   display: block;
   position: absolute;
   top: 0%;
   left: -2%;
   background-color: #f8f8f8;
-  width: 50%;
-  height: 79%;
   margin: 0;
-  padding:0 35px;
+  /* padding:0 35px 0 ; */
   list-style: none;
   box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
   transition-duration: .25s;
@@ -93,5 +90,5 @@ button span{
 
 .close {
   width: 20px;
-  margin-left: 80%;
+  margin-left: 70%;
 }

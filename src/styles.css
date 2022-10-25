@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.example-month-picker .mat-calendar-header{
+       display: none;
+     }
+    
+     mat-year-view .mat-calendar-body-label{
+      display: none !important;
+     }
+     .example-month-picker.mat-calendar {
+           height: 170px !important;
+         }

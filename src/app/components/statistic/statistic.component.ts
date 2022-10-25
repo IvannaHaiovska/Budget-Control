@@ -1,38 +1,33 @@
-import { Component, OnInit,  ViewChild, ElementRef, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { mergeMap, filter, catchError } from 'rxjs/operators';
+import { DatePipe } from '@angular/common'
+import { UntypedFormControl } from '@angular/forms';
 
-import {UntypedFormControl} from '@angular/forms';
-import {MatDatepicker} from '@angular/material/datepicker';
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { UsersService } from 'src/app/shared/service/users/users.service';
 import { StorageService } from 'src/app/shared/service/storage/storage.service';
 
 import { ISavings } from 'src/app/shared/interface/savings/savings';
 import { ISpends } from 'src/app/shared/interface/spends/spends';
 import { IUser } from 'src/app/shared/interface/user/user';
-import * as Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/highcharts-more';
-import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
+
+import * as Highcharts from 'highcharts/highstock';
+
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
+
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import {default as _rollupMoment, Moment} from 'moment';
-import * as d3 from 'd3-selection';
-import * as d3Scale from 'd3-scale';
-import * as d3Array from 'd3-array';
-import * as d3Axis from 'd3-axis';
-// import { StatsBarChart } from 'src/app/shared/interface/data';
+
+import { default as _rollupMoment, Moment } from 'moment';
 
 const moment = _rollupMoment || _moment;
 
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
   },
   display: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'MM',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -43,13 +38,14 @@ export const MY_FORMATS = {
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
   providers: [
+    DatePipe,
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class StatisticComponent implements OnInit {
@@ -58,192 +54,317 @@ export class StatisticComponent implements OnInit {
   public LogUser!: IUser;
   public spends!: ISpends;
   public savings!: ISavings;
-  public allsavings: any[] = [];
-  width!: number;
-  height!: number;
-  margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  x: any;
-  y: any;
-  svg: any;
-  g: any;
-  StatsBar:any[]= [];
-  public month='26/09/2022'
-
-// якщо піставляю ці дані то графік працює
-public StatsBarChart= [
-     {name: 'bank', sum: 5},
-    {name: 'cash', sum: 16},
-    {name: 'certificates of deposit', sum: 15},
-     {name: 'cash', sum: 5},
-     {name: 'bank', sum: 15},
-    {name: 'bank', sum: 5},
-    {name: 'certificates of deposit', sum: 15},
-     {name: 'cash', sum: 5},
-     {name: 'bank', sum: 15},
-    {name: 'bank', sum: 15},
-     {name: 'bank', sum: 15},
-    {name: 'cash', sum: 5},
-    {name: 'bank', sum: 5}
-  ];
-
+  public allsavings: ISavings[] = [];
+  public allspends: ISpends[] = [];
+  public allincome: any[] = [];
+  public title = [{ name: 'Графік витрат' }, { name: 'Графік збережень' }, { name: 'Графік прибутку' }];
+  public category = 'Графік витрат';
+  public savingsBar: any[] = [];
+  public spendsBar: any[] = [];
+  public incomeBar: any[] = [];
+  public month = '17/10/2022'
+  public index = 0;
+  public colors = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
+    '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
   constructor(
     private storageService: StorageService,
-    private userService: UsersService
-  ) { 
-    this.width = 900 - this.margin.left - this.margin.right;
-    this.height = 500 - this.margin.top - this.margin.bottom;
-  }
+    private userService: UsersService,
+    public datepipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
     this.GetLoginUser()
     this.GetSavings();
     this.GetSpends();
     this.GetAllSavings();
-
-    // this.initSvg();
-    // this.initAxis();
-    // this.drawAxis();
-    // this.drawBars();
-    this.createChartColumn();
+    this.GetAllSpends();
+    this.GetAllIncome();
+    this.createChartSpends();
   }
 
- GetAllSavings() {
+  GetAllSavings() {
     this.userService.getAllSavings().subscribe(res => {
-    //   for(let i=0; i<res.length; i++){
-    //     if (res[i].users_id === this.LogUser.id) {
-    //       this.StatsBar.push( {name: res[i].name, sum:res[i].sum
-    //     })
-    //   }
-    // }
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
           this.allsavings.push(item);
         }
-        if(item.create_at){
-
-        }
-      
-        
       })
     })
-  console.log(this.StatsBar);
   }
-  private getRandomNumber(min: number, max: number): number {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-  private createChartColumn(): void {
-    let date = new Date();
-    const data: any[] = [];
 
-    // ці дані працюють, які вказані вище
-    for (let i = 0; i < 10; i++) {
-      date.setDate(new Date().getDate() + i);
-      data.push({
-        name: this.StatsBarChart[i].name,
-        y: this.StatsBarChart[i].sum,
-      });
+  GetAllSpends() {
+    this.userService.getAllSpends().subscribe(res => {
+      res.map(item => {
+        if (item.users_id === this.LogUser.id) {
+          this.allspends.push(item);
+        }
+      })
+    })
+  }
+
+  GetAllIncome() {
+    this.userService.getHistory().subscribe(res => {
+      res.map(item => {
+        if ((item.users_id === this.LogUser.id) && (item.category === 'income')) {
+          this.allincome.push(item);
+        }
+      })
+    })
+  }
+
+
+  private createChartSpends(): void {
+    const data: any[] = [];
+    this.userService.getAllSpends().subscribe(res => {
+      this.spendsBar = res;
+      for (let i = 0; i < this.spendsBar.length; i++) {
+        this.spendsBar[i].create_at = this.datepipe.transform(this.spendsBar[i].create_at, 'yyyy-MM-dd');
+        if ((this.spendsBar[i].users_id === this.LogUser.id) && (this.spendsBar[i].create_at.substr(5, 2) === this.month.substr(3, 2)) && (this.spendsBar[i].create_at.substr(0, 4) === this.month.substr(6, 4))) {
+          data.push({
+            name: this.spendsBar[i].name,
+            y: Math.floor(this.spendsBar[i].sum * 100 / Math.max(this.LogUser.balance)),
+          });
+        }
+      }
+      Highcharts.chart('chart-spending' as any, {
+        chart: {
+          type: 'column',
+        },
+        title: {
+          text: '',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        yAxis: {
+          min: 0,
+          title: undefined,
+        },
+        xAxis: {
+          type: 'category',
+          title: {
+            text: null
+          },
+          min: 0,
+          max: 4,
+          scrollbar: {
+            enabled: true,
+            barBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            barBorderRadius: 7,
+            barBorderWidth: 0,
+            buttonBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            buttonBorderWidth: 0,
+            buttonBorderRadius: 7,
+            trackBackgroundColor: 'none',
+            trackBorderWidth: 1,
+            trackBorderRadius: 8,
+            trackBorderColor: 'rgba(211, 211, 211, 0.283)'
+          },
+          tickLength: 0,
+        },
+        tooltip: {
+          headerFormat: `<div>Date: {point.key}</div>`,
+          pointFormat: `<div>{series.name}: {point.y}</div>`,
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            dataLabels: {
+              enabled: true
+            },
+          }
+        },
+        series: [{
+          colorByPoint: true,
+          name: 'Votes',
+          data,
+        }],
+      } as any);
+    })
+  }
+
+  private createChartSaving(): void {
+    const data: any[] = [];
+    this.userService.getAllSavings().subscribe(res => {
+      this.savingsBar = res;
+      for (let i = 0; i < this.savingsBar.length; i++) {
+        this.savingsBar[i].create_at = this.datepipe.transform(this.savingsBar[i].create_at, 'yyyy-MM-dd');
+        if ((this.savingsBar[i].users_id === this.LogUser.id) && (this.savingsBar[i].create_at.substr(5, 2) === this.month.substr(3, 2)) && (this.savingsBar[i].create_at.substr(0, 4) === this.month.substr(6, 4))) {
+          data.push({
+            name: this.savingsBar[i].name,
+            y: Math.floor(this.savingsBar[i].sum * 100 / this.LogUser.balance),
+          });
+        }
+      }
+      Highcharts.chart('chart-saving' as any, {
+        chart: {
+          type: 'column',
+        },
+        title: {
+          text: '',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        yAxis: {
+          min: 0,
+          title: undefined,
+        },
+        xAxis: {
+          type: 'category',
+          title: {
+            text: null
+          },
+          min: 0,
+          max: 4,
+          scrollbar: {
+            enabled: true,
+            barBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            barBorderRadius: 7,
+            barBorderWidth: 0,
+            buttonBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            buttonBorderWidth: 0,
+            buttonBorderRadius: 7,
+            trackBackgroundColor: 'none',
+            trackBorderWidth: 1,
+            trackBorderRadius: 8,
+            trackBorderColor: 'rgba(211, 211, 211, 0.283)'
+          },
+          tickLength: 0,
+        },
+        tooltip: {
+          headerFormat: `<div>Date: {point.key}</div>`,
+          pointFormat: `<div>{series.name}: {point.y}</div>`,
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            dataLabels: {
+              enabled: true
+            },
+          }
+        },
+        series: [{
+          colorByPoint: true,
+          name: 'Votes',
+          data,
+        }],
+      } as any);
+    })
+  }
+
+  private createChartIncome(): void {
+    const data: any[] = [];
+    this.userService.getHistory().subscribe(res => {
+      this.incomeBar = res;
+      for (let i = 0; i < this.incomeBar.length; i++) {
+        this.incomeBar[i].create_at = this.datepipe.transform(this.incomeBar[i].create_at, 'yyyy-MM-dd');
+        if ((this.incomeBar[i].users_id === this.LogUser.id) && (this.incomeBar[i].create_at.substr(5, 2) === this.month.substr(3, 2)) && (this.incomeBar[i].create_at.substr(0, 4) === this.month.substr(6, 4)) && this.incomeBar[i].category == 'income') {
+          data.push({
+            name: this.incomeBar[i].name,
+            y: Math.floor(this.incomeBar[i].sum * 100 / this.LogUser.balance),
+          });
+        }
+      }
+
+      Highcharts.chart('chart-income' as any, {
+        chart: {
+          type: 'column',
+        },
+        title: {
+          text: '',
+        },
+        credits: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false,
+        },
+        yAxis: {
+          min: 0,
+          title: undefined,
+        },
+        xAxis: {
+          type: 'category',
+          title: {
+            text: null
+          },
+          min: 0,
+          max: 4,
+          scrollbar: {
+            enabled: true,
+            barBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            barBorderRadius: 7,
+            barBorderWidth: 0,
+            buttonBackgroundColor: 'rgba(211, 211, 211, 0.283)',
+            buttonBorderWidth: 0,
+            buttonBorderRadius: 7,
+            trackBackgroundColor: 'none',
+            trackBorderWidth: 1,
+            trackBorderRadius: 8,
+            trackBorderColor: 'rgba(211, 211, 211, 0.283)'
+          },
+          tickLength: 0,
+        },
+        tooltip: {
+          headerFormat: `<div>Date: {point.key}</div>`,
+          pointFormat: `<div>{series.name}: {point.y}</div>`,
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            dataLabels: {
+              enabled: true
+            },
+          }
+        },
+        series: [{
+          colorByPoint: true,
+          name: 'Votes',
+          data,
+        }],
+      } as any);
+    })
+  }
+
+  plusOne() {
+    this.index = this.index + 1;
+    this.category = this.title[this.index].name;
+    if (this.category === 'Графік витрат') {
+      this.createChartSpends();
+    }
+    else if (this.category === 'Графік збережень') {
+      this.createChartSaving();
     }
 
-      // якщо підставляю ці, що потрібно тобто весь обсяг з бази даних то не відображає графік
-    // this.userService.getAllSavings().subscribe(res => {
-    //  res.map(item=>{
-    //    if (item.users_id === this.LogUser.id) {
-    //       data.push({
-    //         name: `${item.name}`, 
-    //         y:item.sum
-    //     })
-    //   }
-    // })
-    // })
-       
-    const chart = Highcharts.chart('chart-column' as any, {
-      chart: {
-        type: 'column',
-      },
-      title: {
-        text: 'Column Chart',
-      },
-      credits: {
-        enabled: false,
-      },
-      legend: {
-        enabled: false,
-      },
-      yAxis: {
-        min: 0,
-        title: undefined,
-      },
-      xAxis: {
-        type: 'category',
-      },
-      tooltip: {
-        headerFormat: `<div>Date: {point.key}</div>`,
-        pointFormat: `<div>{series.name}: {point.y}</div>`,
-        shared: true,
-        useHTML: true,
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true,
-          },
-        },
-      },
-      series: [{
-        name: 'Amount',
-        data,
-      }],
-    } as any);
+    else if (this.category === 'Графік прибутку') {
+      this.createChartIncome()
+    }
+
+  }
+  minusOne() {
+    this.index = this.index - 1;
+    this.category = this.title[this.index].name;
+    if (this.category === 'Графік витрат') {
+      this.createChartSpends();
+    }
+    else if (this.category === 'Графік збережень') {
+      this.createChartSaving();
+    }
+    else if (this.category === 'Графік прибутку') {
+      this.createChartIncome()
+    }
   }
 
-  // initSvg() {
-  //   this.svg = d3.select('#barChart')
-  //     .append('svg')
-  //     .attr('width', '100%')
-  //     .attr('height', '100%')
-  //     .attr('viewBox', '0 0 900 500');
-  //   this.g = this.svg.append('g')
-  //     .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-  // }
-
-  // initAxis() {
-  //   this.x = d3Scale.scaleBand().rangeRound([0, this.width]).padding(0.1);
-  //   this.y = d3Scale.scaleLinear().rangeRound([this.height, 0]);
-  //   this.x.domain(this.StatsBar.map((d:any) => d.name));
-  //   this.y.domain([0, d3Array.max(this.StatsBar, (d:any) =>  d.sum)]);
-  // }
-
-  // drawAxis() {
-  //   this.g.append('g')
-  //     .attr('class', 'axis axis--x')
-  //     .attr('transform', 'translate(0,' + this.height + ')')
-  //     .call(d3Axis.axisBottom(this.x));
-  //   this.g.append('g')
-  //     .attr('class', 'axis axis--y')
-  //     .call(d3Axis.axisLeft(this.y))
-  //     .append('text')
-  //     .attr('class', 'axis-title')
-  //     .attr('transform', 'rotate(-90)')
-  //     .attr('y', 6)
-  //     .attr('dy', '0.71em')
-  //     .attr('text-anchor', 'end')
-  //     .text('Sum');
-  // }
-
-  // drawBars() {
-    
-  //   this.g.selectAll('.bar')
-  //     .data(this.StatsBar)
-  //     .enter().append('rect')
-  //     .attr('class', 'bar')
-  //     .attr('x', (d: any) => this.x(d.name))
-  //     .attr('y', (d: any) => this.y(d.sum))
-  //     .attr('width', this.x.bandwidth())
-  //     .attr('fill', '#498bfc')
-  //     .attr('height', (d: any) => this.height - this.y(d.sum));
-  // }
-
- 
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
@@ -254,19 +375,23 @@ public StatsBarChart= [
     const ctrlValue = this.date.value;
     ctrlValue.month(normalizedMonth.month());
     this.date.setValue(ctrlValue);
-    datepicker.close(); 
+    datepicker.close();
     this.month = moment(this.date.value).format('DD/MM/YYYY');
     console.log(this.month);
-    
+    if (this.category === 'Графік витрат') {
+      this.createChartSpends();
+    }
+    else if (this.category === 'Графік збережень') {
+      this.createChartSaving();
+    }
+    else if (this.category === 'Графік прибутку') {
+      this.createChartIncome()
+    }
   }
 
   GetLoginUser() {
     this.log = this.storageService.getUser();
     this.LogUser = this.log.user;
-  }
-  getRandomColor() {
-    // let color = Math.floor(0x1000000 * Math.random()).toString(16);
-    // return '#' + ('000000' + color).slice(-6);
   }
 
   GetSavings() {
@@ -277,11 +402,9 @@ public StatsBarChart= [
       )
     ).subscribe(res => {
       this.savings = res;
-      // console.log(res)
-    }
-    )
+    })
   }
- 
+
   GetSpends() {
     this.userService.getAllSpends().pipe(
       mergeMap(task => task),
@@ -290,10 +413,7 @@ public StatsBarChart= [
       )
     ).subscribe(res => {
       this.spends = res;
-      // console.log(res)
-    }
-
-    )
+    })
   }
 
 }

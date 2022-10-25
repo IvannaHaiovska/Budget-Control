@@ -1,101 +1,139 @@
+
 .content {
-    width: 94.5%;
-    min-height: 620px;
-    box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
-    margin: 35px 43px 0 43px;
-    padding: 10px;
-    font-family: sans-serif;
-  }
-  h1 {
-    margin: 10px auto;
-    font-weight: 600;
-    font-family: sans-serif;
-    font-size: 1.8em;
-    width: 10%;
-    color: rgba(28, 28, 28, 0.868);
-  }
-  
-  .schedule {
-    border: 2px solid rgb(20, 20, 20);
-    padding: 10px;
-    width: 80%;
-    margin: 20px auto;
-  }
-  
-  .border {
-    border: 1px solid rgb(192, 192, 192);
-    border-radius: 0.4em;
-    padding: 20px;
-    margin: 30px auto; 
-      width: 60.3%;
-      height: 400px;
-      /* overflow-y:scroll; */
-  }
-  th{
-    padding-bottom: 10px;
-  }
-  
-  
-  table {
-    table-layout: fixed;
-    margin-bottom: 20px;
-    border-collapse: collapse;
-    font-size: 1.2em;
-    color: rgb(41, 41, 41);
-  }
-  
-  table tr {
-    padding: 10px 20px;
-    background: #efefef;
-  }
-  
-  table td {
-    text-align: left; 
-    border-bottom: 1px solid rgb(215, 215, 215); padding: 10px 64px;
-  }
-  
-  table tr:nth-child(odd) {
-    background: #fff;
-  }
-  
-  table tr:nth-child(even) {
-    background: #F7F7F7;
-  }
-  tr:first-child{
-    font-weight: bold;
-  }
-  tr:first-child td:nth-child(even){
+  width: 94.5%;
+  min-height: 620px;
+  box-shadow: 0 0 10px rgba(172, 172, 172, 0.84);
+  margin: 35px 43px 0 43px;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin: 10px auto;
+  font-weight: 600;
+  font-family: sans-serif;
+  font-size: 1.8em;
+  width: 10%;
+  color: rgba(28, 28, 28, 0.868);
+}
+
+.schedule {
+  border: 2px solid rgb(20, 20, 20);
+  padding: 10px;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.border {
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 0.4em;
+  height: 400px;
+  padding: 50px;
+  margin: 30px auto;
+  width: 54.3%;
+}
+
+th {
+  padding-bottom: 10px;
+}
+
+table {
+  table-layout: fixed;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  font-size: 1.5em;
+  color: rgb(41, 41, 41);
+  width: 700px;
+  text-align: center;
+}
+
+table tr {
+  padding: 10px 20px;
+  background: #efefef;
+}
+
+table td {
+  border-bottom: 1px solid rgb(215, 215, 215);
+  padding: 10px 0;
+}
+
+table tr:nth-child(odd) {
+  background: #fff;
+}
+
+table tr:nth-child(even) {
+  background: #F7F7F7;
+}
+
+tr:first-child {
+  font-weight: bold;
+}
+
+tr:first-child td:nth-child(even) {
   color: rgba(78, 206, 136, 0.913);
-  }
-  
+}
 
-  .bar {
-    fill: steelblue;
-  }
-  
-  .bar:hover {
-    fill: brown;
-  }
-  
-  .axis-title {
-    fill: none;
-    stroke: black;
-    stroke-width: 0.5px;
-  }
-  #barChart{
-    
-    overflow-x:scroll;
-  }
 
-  /* hide scrollbar but allow scrolling */
-  .border {
-  -ms-overflow-style: none; /* for Internet Explorer, Edge */
-  scrollbar-width: none; /* for Firefox */
-  overflow-y: scroll; 
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis-title {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5px;
+}
+
+.border {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
 }
 
 .border::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Opera */
+  display: none;
 }
 
-/* other styling */
+#chart-column {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  /* overflow-x: scroll; */
+}
+
+#chart-column::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  margin: 50px auto 30px;
+  width: 400px;
+  font-size: 1.2em;
+  color: rgb(84, 84, 84);
+  font-weight: bold;
+}
+
+.fs {
+  font-size: 1.8em;
+}
+.block{
+  display: flex;
+ flex-direction: row;
+ height: 300px;
+ width: 100%;
+}
+#chart-spending, #chart-saving, #chart-income{
+  margin-right: 50px;
+  max-width: 900px;
+  min-width: 720px;
+  width: 400px;
+}
+
+.noInfo{
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 190px;
+}

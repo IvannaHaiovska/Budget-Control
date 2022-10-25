@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
   public spends: any[] = [];
   public savings: any[] = [];
   public allspends: ISpends[] = [];
-  public allsavings: ISavings[] = [];
   public input: string = '';
   public result: string = '';
   public keyBinding = [
@@ -86,7 +85,6 @@ export class HomeComponent implements OnInit {
 
   GetSavings() {
     this.userService.getAllSavings().subscribe(res => {
-      this.allsavings = res;
       res.map(item => {
         if (item.users_id === this.LogUser.id) {
           this.savings.push(item);
@@ -140,6 +138,7 @@ export class HomeComponent implements OnInit {
       });
       this.Reload();
     }
+    
     this.create = false;
     this.createSav = false;
     this.createSp = false;

@@ -15,8 +15,8 @@
       <hr>
       <div class="flex">
         <div class="block savings" *ngFor="let item of savings; let i as index">
-          <div *ngIf="item.create_at.substr(5, 2) === '09'">
-            <span>{{item.name}}</span>
+          <div *ngIf="item.create_at.substr(5, 2) === '10'">
+            <span>{{item.name | uppercase}}</span>
             <div class="circle" (click)="Saving(i)" [class.active]="item == activeSaving"
               [ngClass]="{ useItem: clickIncome}">
               <img *ngIf="item.name=='cash'" src="assets/images/cash.png" alt="">
@@ -39,8 +39,8 @@
       <hr>
       <div class="flex">
         <div class="block spends" *ngFor="let item of spends; let i as index">
-          <div *ngIf="item.create_at.substr(5, 2) === '09'">
-            <span class="ml">{{item.name}}</span>
+          <div *ngIf="item.create_at.substr(5, 2) === '10'">
+            <span class="ml">{{item.name | uppercase}}</span>
             <div class="circle" (click)="
           Spends(i)" [class.active]="item == activeSpend" [ngClass]="{ useItem1: clickSaving}">
               <img *ngIf="item.name=='girlfriend'" src="assets/images/high-heels.png" alt="">

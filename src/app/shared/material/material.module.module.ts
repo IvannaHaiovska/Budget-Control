@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import {A11yModule} from '@angular/cdk/a11y';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    A11yModule
   ],
   exports: [
     MatToolbarModule,
@@ -39,7 +40,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDialogModule,
     MatTabsModule,
     MatTableModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    A11yModule
   ],
   providers:[
     { provide: MAT_DIALOG_DATA, useValue: {} },
